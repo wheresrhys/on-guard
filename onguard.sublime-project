@@ -1,0 +1,27 @@
+{
+	"folders":	[
+		{
+			"path": "/Users/wheresrhys/Sites/on-guard"
+		}
+	],
+    "build_systems": [
+//         {
+//             "name": "updateHTML",
+//             "cmd": ["ant", "update-ui"],
+//             "working_dir": "/Users/a-rhevans/hcom-dev/applications/dev/HermesWebApp",
+//             "selector": "text.html.jsp"
+//         },
+//         {
+//             "name": "updateCSS",
+//             "cmd": ["ant", "update-ui"],
+// "working_dir": "/Users/a-rhevans/hcom-dev/Assets/CommonAssetPack/Main",
+//             "selector": "source.css"
+//         },
+//         {
+//             "name": "updateJS",
+//             "cmd": ["ant", "update-ui"],
+// "working_dir": "/Users/a-rhevans/hcom-dev/Assets/CommonAssetPack/Main",
+//             "selector": "source.js"
+//         }
+    ]
+}

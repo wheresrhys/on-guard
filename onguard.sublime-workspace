@@ -1,0 +1,390 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"shi",
+				"shift"
+			],
+			[
+				"ge",
+				"getNextStepName"
+			],
+			[
+				"start",
+				"startSequence"
+			],
+			[
+				"takeS",
+				"takeSpecificStep"
+			],
+			[
+				"dis",
+				"disciplineConfigs"
+			],
+			[
+				"f",
+				"f	Anonymous Function"
+			],
+			[
+				"bar",
+				"bar-legend"
+			],
+			[
+				"no",
+				"nowrap"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/User/builds/grunt.sublime-build",
+	"command_palette":
+	{
+		"height": 47.0,
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"html",
+				"Snippet: html"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"can",
+				"Can I Switch To Sublime Text 3?"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"pack i",
+				"Package Control: Install Package"
+			],
+			[
+				"mark",
+				"Markdown Preview: preview in Browser"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/wheresrhys/Sites/pearson test/js/part4.js",
+		"/Users/wheresrhys/Documents/Hello Bella.txt",
+		"/Users/wheresrhys/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/lib/sass-bootstrap/js/bootstrap-button.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/references/angular-requirejs-seed/app/js/app.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/lib/angular/angular.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/src/main_marionette.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/.bowerrc",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/.gitignore",
+		"/Users/wheresrhys/Sites/tools/BPM/js/main.js",
+		"/Users/wheresrhys/Sites/pearson test/layout.html",
+		"/Users/wheresrhys/Sites/pearson test/js:part2.js",
+		"/Users/wheresrhys/Sites/wheresrhys/style/components/json.css",
+		"/Users/wheresrhys/Library/Application Support/Sublime Text 2/Packages/User/builds/chrome.sublime-build",
+		"/Users/wheresrhys/Library/Application Support/Sublime Text 2/Packages/User/builds/grunt.sublime-build",
+		"/Users/wheresrhys/Library/Application Support/Sublime Text 2/Packages/User/builds/node.sublime-build",
+		"/Users/wheresrhys/Sites/tools/sublime-projects/jnr2.sublime-project",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/scripts/src/router.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/scripts/src/route-controller.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/scripts/main.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/server/routes/scraper.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/templates/application.html",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/scripts/app.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/server.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/index.html",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/.jshintrc",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/scripts/vendor/backbone.marionette.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/scripts/vendor/backbone.namespaced-events.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/server/app.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/server/routes/migrate.js",
+		"/Users/wheresrhys/Sites/wheresrhys/wheresrhys.package.json",
+		"/Users/wheresrhys/Sites/wheresrhys.package.json",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/public/scripts/vendor/backbone-relational.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/app/index.html",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/app/styles/bootstrap-responsive.css",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/package.json",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/app/styles/main.css",
+		"/Users/wheresrhys/Sites/jigsnreels/master/js/src/views/tune.js",
+		"/Users/wheresrhys/Sites/jigsnreels/dev/old/nodeserver/node_modules/express/node_modules/debug/example/browser.html",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/node_modules/grunt-jasmine-runner/tasks/jasmine.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/grunt.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/CONTRIBUTING.md",
+		"/Users/wheresrhys/Sites/opensource/jquery/category-tabs/grunt.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/test/defer.html",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/test/defer_test.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/libs/jquery-loader.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/grunt.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/libs/jquery/jquery-1.5.js",
+		"/usr/local/lib/node_modules/grunt/tasks/qunit.js",
+		"/usr/local/lib/node_modules/grunt/lib/grunt/file.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/test/flickbook.html",
+		"/Users/wheresrhys/Sites/opensource/jquery/category-tabs/src/category-tabs.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/category-tabs/README.md",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/defer.jquery.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/node_modules/grunt-contrib-qunit/docs/qunit-examples.md",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/src/flickbook.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/test/flickbook_test.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/package.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/flickbook.jquery.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/README.md",
+		"/Users/wheresrhys/Sites/opensource/jquery/category-tabs/grunt/category-tabs.jquery.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/category-tabs/test/category-tabs_test.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/category-tabs/css/jquery.listSplitter.css",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/node_modules/grunt-jasmine-runner/package.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/test/testSuite.php",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/grunt-scaffolding/test/flickbook_test.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/grunt-scaffolding/test/flickbook.html",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/tests/fixtures/image-tag.html",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/src/jquery.flickbook.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/grunt-scaffolding/src/flickbook.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/deferize/README.md",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/package.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/src/defer.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/defer/README.md",
+		"/Users/wheresrhys/Sites/opensource/jquery/deferize/src/defer.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/deferize/test/defer_test.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/deferize/test/defer.html",
+		"/Users/wheresrhys/Sites/opensource/jquery/deferize/package.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/deferize/defer.jquery.json",
+		"/Users/wheresrhys/Sites/opensource/jquery/deferize/grunt.js",
+		"/Users/wheresrhys/Sites/opensource/jquery/flickbook/grunt-scaffolding/jquery.flickbook.jquery.json"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"public/**/*",
+			"/public",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"Driller.extendConf",
+			"init",
+			"startSequence",
+			"publishStep",
+			"detachEvents",
+			"caller",
+			"'",
+			"fb",
+			"lr",
+			"this.currentStep.move[1]",
+			"this.currentStep.move[0]",
+			"conditions: {\n                            before: 'onGuard'\n                        }",
+			"takeSpecificStep",
+			"fire",
+			"publish",
+			"unsubscribe",
+			"subscribe",
+			"callOutStep",
+			"getEmitter",
+			"emitter",
+			"emitter.callbacks",
+			"emitter",
+			"doPublish",
+			"this.callbacks",
+			"this",
+			"cs1",
+			"cs0",
+			"makeEventEmitter",
+			"Component",
+			"Caller",
+			"t: 1",
+			"{}",
+			"move",
+			"im",
+			"llStep",
+			"playStep",
+			"clicker",
+			"doClick",
+			"entUrl}",
+			"currUrl",
+			"n\"",
+			"$routeProvi",
+			"myApp",
+			"gular\\'], fu",
+			"define(fun",
+			"bootstrap",
+			"lib/angular-bootstrap",
+			"lib",
+			"bootstrap",
+			"scripts/vendor/bootstrap/",
+			"scripts/vendor/",
+			"checked",
+			"5px;",
+			" <td><span class=\"bar-wrapper\">",
+			"</span>",
+			"<span",
+			"span",
+			"<td>Variable 1</td>",
+			"75",
+			" color",
+			"class=\"",
+			"teh",
+			"child",
+			"store",
+			"callback",
+			"'",
+			" ",
+			"<img .* />",
+			"section",
+			"\"",
+			"/",
+			"underscore",
+			"wreqr",
+			"(\\s+)$",
+			"^(\\s+)",
+			"^(/s+)",
+			"getBoundDeferredFunction",
+			"this.mutator",
+			"'",
+			"^\\s+",
+			"\\t",
+			"})",
+			"lib",
+			"obj",
+			"eferrize",
+			"eferize",
+			"deferize",
+			"eferize",
+			"returned"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+			"",
+			"$0$0",
+			"$1$1",
+			"    ",
+			"efer"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 202.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"browse",
+				"dev/old/nodeserver/node_modules/express/node_modules/debug/example/browser.html"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 278.0,
+	"status_bar_visible": true
+}
