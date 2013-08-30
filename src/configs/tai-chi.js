@@ -1,0 +1,55 @@
+define({
+    name: 'taiChi',
+    steps: {
+        step: {
+            frontFoot: 1,
+            move: [1, 0],
+            direction: 0
+        },
+        back: {
+            frontFoot: 1,
+            move: [-1, 0],
+            direction: 0
+        },
+        shift: {
+            frontFoot: 1,
+            move: [0, 0],
+            direction: -1 // indicates turning away from front foot
+        },
+        'switch': {
+            frontFoot: 1,
+            move: [0, 0],
+            direction: 0
+        },
+        // inside: {
+        //     frontFoot: 0,
+        //     move: [0, 1],
+        //     direction: 0
+        // },
+        // outside: {
+        //     frontFoot: 0,
+        //     move: [0, -1],
+        //     direction: 0
+        // },
+        onGuard: {
+            _propertyDefinition: true,
+            enumerable: false,
+            value: {
+                frontFoot: 'Left',
+                move: [-0.5, 0.5],
+                direction: 0
+            }
+        },
+        wuChi: {
+            _propertyDefinition: true,
+            enumerable: false,
+            value: {
+                frontFoot: false,
+                move: [0.5, -0.5],
+                direction: 0
+            }
+        }
+    },
+    startSequence: ['wuChi', 'onGuard'],
+    endSequence: ['wuChi']
+});

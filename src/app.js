@@ -1,10 +1,18 @@
 define([
-	'modules/driller'
-], function (Driller) {
+	'modules/driller',
+    'modules/caller',
+    'configs/tai-chi'
+], function (Driller, Caller, taiChiConfig) {
 	'use strict';
     return {
         init: function () {
-            var driller = new Driller();
+            Driller.addDiscipline(taiChiConfig);
+            
+            var driller = new Driller({
+                discipline: 'taiChi'
+            });
+
+            var caller = new Caller(driller);
 
             driller.start();
 
@@ -13,8 +21,8 @@ define([
                 setTimeout(function () {
                    // driller.start();
                 }, 5000);
-            }, 4000);            
+            }, 20000);
         }
-    }
+    };
 
 });

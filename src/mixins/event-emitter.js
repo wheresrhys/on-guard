@@ -2,7 +2,7 @@
     
     'use strict';
 
-    var emitEvents = (function (undefined) { 
+    var emitEvents = (function (undefined) {
 
         var on = function (event, callback, context) {
 
@@ -20,9 +20,12 @@
                 if (context.on !== on) {
                     emitEvents.apply(context);
                 }
-                context.on('silenceEvents', function () {
-                    off.call(this, event, callback, context);
-                }, this);
+                if (event !== 'silenceEvents') {
+                    context.on('silenceEvents', function () {
+                        off.call(this, event, callback, context);
+                    }, this);
+                        
+                }
                 
             },
 
@@ -49,12 +52,12 @@
                 var store = callbacks[event],
                     i = 0,
                     il;
-                console.log('Event emitted', '\nemitter: ', this, '\nevent:', event, '\ndata: ', result);
+                //console.log('Event emitted', '\nemitter: ', this, '\nevent:', event, '\ndata: ', result);
                 if (!store) {return;}
 
                 // loop here must be in increasing order
                 for (il = store.length; i<il; i++) {
-                    store[i].callback.call(store[i].context, this, event, result);
+                    store[i].callback.call(store[i].context, result, event, this);
                 }
                 
             },
@@ -77,7 +80,7 @@
             callbacks = [],
             contexts = [];
 
-        return function (config) { 
+        return function () {
 
             this.on = on;
             this.off = off;

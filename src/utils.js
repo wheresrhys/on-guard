@@ -35,19 +35,39 @@ define(function () {
             if (extenders.length > 1) {
                 extender = extendObj.apply(this, extenders);
             } else {
-                extender = extenders[0];    
+                extender = extenders[0];
             }
 
             for (var key in extender) {
-                base[key] = extender[key];    
+                base[key] = extender[key];
             }
 
             return base;
+        },
+        toCamel = function (text) {
+            return text.replace(/\-\w/g, function ($0) {
+                return $0.toUpperCase();
+            });
+        },
+        fromCamel = function(text) {
+            return text.replace(/\w[A-Z]/g, function ($0) {
+                return $0.charAt(0) + '-' + $0.charAt(1).toLowerCase();
+            });
+        },
+        dashedToSpaced = function (text) {
+            return text.replace('-', ' ');
+        },
+        camelToSpaced = function (text) {
+            return fromCamel(text).replace('-', ' ');
         };
 
     return {
         pickRandomProperty: pickRandomProperty,
         defineProps: defineProps,
-        extendObj: extendObj
+        extendObj: extendObj,
+        toCamel: toCamel,
+        fromCamel: fromCamel,
+        dashedToSpaced: dashedToSpaced,
+        camelToSpaced: camelToSpaced
     };
-});    
+});

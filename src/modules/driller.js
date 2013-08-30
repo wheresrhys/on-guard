@@ -8,83 +8,28 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
         compass = [N, E, S, W];
 
     var Driller = function (conf) {
-        var discipline = (conf && conf.discipline) || Driller.defaults.discipline;
-        this.conf = utils.extendObj({}, Driller.defaults, Driller.disciplineConfigs[discipline], conf || {});
+        this.discipline = (conf && conf.discipline) || Driller.defaults.discipline;
+        this.conf = utils.extendObj({}, Driller.defaults, Driller.disciplineConfigs[this.discipline], conf || {});
         this.init();
     };
 
     Driller.defaults = {
-        discipline: 'taiChi',
         minTime: 2,
         maxTime: 4,
         avgTime: 3,
         avgWeight: 1
     };
 
-    Driller.disciplineConfigs ={
-        taiChi: {
-            steps: {
-                step: {
-                    frontFoot: 1,
-                    move: [1, 0],
-                    direction: 0
-                },
-                back: {
-                    frontFoot: 1,
-                    move: [-1, 0],
-                    direction: 0
-                },
-                shift: {
-                    frontFoot: 1,
-                    move: [0, 0],
-                    direction: -1 // indicates turning away from front foot
-                },
-                'switch': {
-                    frontFoot: 1,
-                    move: [0, 0],
-                    direction: 0
-                },
-                inside: {
-                    frontFoot: 0,
-                    move: [0, 1],
-                    direction: 0
-                },
-                outside: {
-                    frontFoot: 0,
-                    move: [0, -1],
-                    direction: 0
-                },
-                onGuard: {
-                    _propertyDefinition: true,
-                    enumerable: false,
-                    value: {
-                        frontFoot: L,
-                        move: [-0.5, 0.5],
-                        direction: 0
-                    }
-                },
-                wuChi: {
-                    _propertyDefinition: true,
-                    enumerable: false,
-                    value: {
-                        frontFoot: false,
-                        move: [0.5, -0.5],
-                        direction: 0                    
-                    }
-                }
-            },
-            startSequence: ['wuChi', 'onGuard'],
-            endSequence: ['wuChi']
-        }
-    }
+    Driller.addDiscipline = function (config) {
+        Driller.disciplineConfigs[config.name] = config;
+        utils.defineProps(config.steps);
+    };
 
-    for (var key in Driller.disciplineConfigs) {
-        utils.defineProps(Driller.disciplineConfigs[key].steps);
-    }
+    Driller.disciplineConfigs = {};
 
     Driller.prototype = {
         init: function () {
-            this.square = [0,0];
+            this.coords = [0,0];
             this.frontFoot = null;
             this.direction = 0;
         },
@@ -102,7 +47,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 direction: compass[this.direction],
                 frontFoot: this.frontFoot,
                 lastStep: step,
-                square: this.square[0] + ':' + this.square[1]
+                coords: this.coords[0] + ':' + this.coords[1]
             });
         },
         stop: function () {
@@ -124,7 +69,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                     that.adjustPosition(step);
                     that.takeStep();
                     // remember to do this on sound finish (maybe?)
-                }, this.getTimeInterval());    
+                }, this.getTimeInterval());
             }
         },
         getNextStepName: function (closing) {
@@ -133,8 +78,11 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             } else if (this.startSequence.length) {
                 return this.startSequence.shift();
             } else {
-                return utils.pickRandomProperty(this.conf.steps);
+                return this.getValidStep();
             }
+        },
+        getValidStep: function () {
+            return utils.pickRandomProperty(this.conf.steps);
         },
         adjustPosition: function (step) {
             var moveMatrix,
@@ -148,19 +96,19 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
             if (this.currentStep.frontFoot) {
 
-                this.frontFoot = this.currentStep.frontFoot === L ? L :
-                                this.currentStep.frontFoot === R ? R :
+                this.frontFoot =    this.currentStep.frontFoot === L ? L :
+                                    this.currentStep.frontFoot === R ? R :
                                     this.frontFoot === R ? L : R;
             }
             
             switch (this.direction) {
-                case 0:   
+                case 0:
                     moveMatrix = [frontToBack, leftToRight];
                     break;
-                case 1:     
+                case 1:
                     moveMatrix = [-leftToRight, frontToBack];
                     break;
-                case 2:     
+                case 2:
                     moveMatrix = [-frontToBack, -leftToRight];
                     break;
                 case 3:
@@ -169,7 +117,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
             }
 
-            this.square = [this.square[0] + moveMatrix[0], this.square[1] + moveMatrix[1]];
+            this.coords = [this.coords[0] + moveMatrix[0], this.coords[1] + moveMatrix[1]];
 
             this.announceStep(step);
         },
@@ -179,7 +127,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             time = Math.max(Math.min(this.conf.maxTime, time), this.conf.minTime);
             //console.log(time);
             return 1000;
-            return time * 1000;
+            // return time * 1000;
         },
         updateSettings: function (conf) {
             this.conf = utils.extendObj(this.conf, conf);
@@ -193,7 +141,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 delete this.steps[name];
             }
         }
-    }
+    };
 
     eventEmitter.apply(Driller.prototype);
 
