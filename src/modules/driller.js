@@ -1,4 +1,5 @@
 define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
+    
     var L = 'Left',
         R = 'Right',
         N = 'North',

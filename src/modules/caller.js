@@ -37,7 +37,7 @@ define(['utils'], function (utils) {
         },
         preloadAudio: function () {
             var steps = this.driller.conf.steps;
-
+//getOwnPropertyNames
         }
     };
 

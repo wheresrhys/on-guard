@@ -1,1 +1,5 @@
 node_modules
+specRunner.html
+test/coverage
+test/coverage.json
+.grunt
