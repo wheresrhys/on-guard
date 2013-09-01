@@ -13,13 +13,14 @@
     "quotmark": true,
     "regexp": true,
     "undef": true,
-    "unused": true,
+    "unused": false,
     "strict": false,
     "noempty": true,
-    "maxparams": 3,
+    "maxparams": false,
     "boss": true,
     "expr": true,
     "multistr": true,
+    "evil": true,
     "globals": {
         "define": false
     }

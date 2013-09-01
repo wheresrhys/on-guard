@@ -1,4 +1,4 @@
-/*global describe:false, jasmine:false, beforeEach:false, ,afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
+/*global describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('event-emitter', function () {
 
     'use strict';

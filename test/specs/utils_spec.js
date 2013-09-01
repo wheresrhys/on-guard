@@ -1,4 +1,4 @@
-/*global describe:false, jasmine:false, beforeEach:false, ,afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
+/*global describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('utils', function () {
     var utils = require('utils');
 
@@ -77,7 +77,8 @@ describe('utils', function () {
                     prop4: 44
                 };
 
-            var testObj = extendObj(obj1, obj2, obj3, obj4);
+            extendObj(obj1, obj2, obj3, obj4);
+
             expect(obj2).toEqual({
                 prop2: 22,
                 prop3: 32,

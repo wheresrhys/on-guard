@@ -2,6 +2,11 @@
 module.exports = function(grunt) {
     'use strict';
 
+    var fs = require('fs'),
+        jshintrc;
+
+    eval('jshintrc = ' + fs.readFileSync('.jshintrc', 'utf8'));
+
 
     // Project configuration.
     grunt.initConfig({
@@ -33,42 +38,17 @@ module.exports = function(grunt) {
         },
 
         jshint: {
+            options: jshintrc,
+//                 jshintrc: '.jshintrc'
+            // },
+            lenient: ['Gruntfile.js', 'src/**/*.js', 'test/specs/**/*.js'],
             strict: {
                 files: {
                     src: ['Gruntfile.js', 'src/**/*.js', 'test/specs/**/*.js']
                 },
                 options: {
-                    jshintrc: '.jshintrc'
-                }
-            },
-            lenient: {
-                files: {
-                    src: ['Gruntfile.js', 'src/**/*.js', 'test/specs/**/*.js']
-                },
-                options: {
-                    node: true,
-                    browser: true,
-                    es5: true,
-                    bitwise: true,
-                    curly: true,
-                    eqeqeq: true,
-                    immed: true,
-                    indent: 4,
-                    latedef: true,
-                    newcap: true,
-                    noarg: true,
-                    quotmark: true,
-                    regexp: true,
-                    undef: true,
-                    unused: false,
-                    strict: false,
-                    noempty: true,
-                    boss: true,
-                    expr: true,
-                    multistr: true,
-                    globals: {
-                        define: false
-                    }
+                    unused: true,
+                    maxparams: 3
                 }
             }
         },
