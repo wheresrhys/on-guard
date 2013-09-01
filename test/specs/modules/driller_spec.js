@@ -1,3 +1,4 @@
+/*global describe:false, jasmine:false, beforeEach:false, ,afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('driller', function () {
     
     var Driller = require('modules/driller'),
@@ -215,8 +216,8 @@ describe('driller', function () {
             });
 
             it('should use default max step count', function () {
-                 driller = new Driller();
-                 expect(driller.stepCount).toBe(Driller.defaults.stepCount);
+                driller = new Driller();
+                expect(driller.stepCount).toBe(Driller.defaults.stepCount);
             });
 
             it('should override default max step count if specified', function () {

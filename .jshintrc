@@ -1,0 +1,26 @@
+{
+    "node": true,
+    "browser": true,
+    "es5": true,
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "indent": 4,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "quotmark": true,
+    "regexp": true,
+    "undef": true,
+    "unused": true,
+    "strict": false,
+    "noempty": true,
+    "maxparams": 3,
+    "boss": true,
+    "expr": true,
+    "multistr": true,
+    "globals": {
+        "define": false
+    }
+}

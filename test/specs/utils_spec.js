@@ -1,3 +1,4 @@
+/*global describe:false, jasmine:false, beforeEach:false, ,afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('utils', function () {
     var utils = require('utils');
 
@@ -118,5 +119,4 @@ describe('utils', function () {
         });
     });
 
-    
-})
+});

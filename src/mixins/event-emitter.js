@@ -1,4 +1,4 @@
- define(function () {
+define(function () {
     
     'use strict';
 
@@ -126,12 +126,12 @@
                 return this;
             };
 
-            mixin.cleanUp = function () {
-                callbacks = [];
-                contexts = [];
-            };
+        mixin.cleanUp = function () {
+            callbacks = [];
+            contexts = [];
+        };
 
-            return mixin;
+        return mixin;
 
     })(undefined);
 

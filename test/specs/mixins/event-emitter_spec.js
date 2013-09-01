@@ -1,3 +1,4 @@
+/*global describe:false, jasmine:false, beforeEach:false, ,afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('event-emitter', function () {
 
     'use strict';
@@ -83,14 +84,14 @@ describe('event-emitter', function () {
                 c2 = {},
                 contextRecord = [];
 
-                emitter1.on('event', cb1);
-                emitter1.on('event', cb1, c1);
-                emitter1.on('event', cb1, c2);
-                emitter1.on('event', cb2);
-                emitter1.fire('event');
-                expect(cb1.calls.length).toBe(3);
-                expect(cb2.calls.length).toBe(1);
-                expect(contextRecord).toEqual([window, c1, c2]);
+            emitter1.on('event', cb1);
+            emitter1.on('event', cb1, c1);
+            emitter1.on('event', cb1, c2);
+            emitter1.on('event', cb2);
+            emitter1.fire('event');
+            expect(cb1.calls.length).toBe(3);
+            expect(cb2.calls.length).toBe(1);
+            expect(contextRecord).toEqual([window, c1, c2]);
         });
 
         it('should allow events with same name on differnent emitters', function () {

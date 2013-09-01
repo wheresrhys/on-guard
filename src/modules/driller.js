@@ -133,18 +133,19 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             }
             
             switch (this.direction) {
-                case 0:
-                    moveMatrix = [frontToBack, leftToRight];
-                    break;
-                case 1:
-                    moveMatrix = [-leftToRight, frontToBack];
-                    break;
-                case 2:
-                    moveMatrix = [-frontToBack, -leftToRight];
-                    break;
-                case 3:
-                    moveMatrix = [leftToRight, -frontToBack];
-                    break;
+            
+            case 0:
+                moveMatrix = [frontToBack, leftToRight];
+                break;
+            case 1:
+                moveMatrix = [-leftToRight, frontToBack];
+                break;
+            case 2:
+                moveMatrix = [-frontToBack, -leftToRight];
+                break;
+            case 3:
+                moveMatrix = [leftToRight, -frontToBack];
+                break;
 
             }
 
