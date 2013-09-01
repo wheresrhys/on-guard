@@ -1,5 +1,5 @@
 /*global describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
-describe('driller', function () {
+describe('modules/driller', function () {
     
     var Driller = require('modules/driller'),
         driller,
@@ -16,12 +16,12 @@ describe('driller', function () {
                     move: [1, 0],
                     direction: 0
                 },
-                rotateRight: {
+                rotateOut: {
                     frontFoot: 0,
                     move: [0, 0],
                     direction: 1
                 },
-                rotateLeft: {
+                rotateIn: {
                     frontFoot: 0,
                     move: [0, 0],
                     direction: -1
@@ -31,26 +31,16 @@ describe('driller', function () {
                     move: [-1, 0],
                     direction: 0 
                 },
-                side1: {
+                out: {
                     frontFoot: 0,
                     move: [0, 1],
                     direction: 0 
                 },
-                side2: {
+                'in': {
                     frontFoot: 0,
                     move: [0, -1],
                     direction: 0 
                 },
-                // rotateRight: {
-                //     frontFoot: 1,
-                //     move: [-1, 0],
-                //     direction: 0
-                // },
-                // rotateLeft: {
-                //     frontFoot: 0,
-                //     move: [-1, 0],
-                //     direction: 0
-                // },
                 specialStep1: {
                     _propertyDefinition: true,
                     enumerable: false,
@@ -68,45 +58,7 @@ describe('driller', function () {
                         move: [0, 0],
                         direction: 0
                     }
-                },
-                // shift: {
-                //     frontFoot: 1,
-                //     move: [0, 0],
-                //     direction: -1 // indicates turning away from front foot
-                // },
-                // 'switch': {
-                //     frontFoot: 1,
-                //     move: [0, 0],
-                //     direction: 0
-                // },
-                // inside: {
-                //     frontFoot: 0,
-                //     move: [0, 1],
-                //     direction: 0
-                // },
-                // outside: {
-                //     frontFoot: 0,
-                //     move: [0, -1],
-                //     direction: 0
-                // },
-                // onGuard: {
-                //     _propertyDefinition: true,
-                //     enumerable: false,
-                //     value: {
-                //         frontFoot: 'Left',
-                //         move: [0, 0],
-                //         direction: 0
-                //     }
-                // },
-                // wuChi: {
-                //     _propertyDefinition: true,
-                //     enumerable: false,
-                //     value: {
-                //         frontFoot: false,
-                //         move: [0, 0],
-                //         direction: 0
-                //     }
-                // }
+                }
             },
             startSequence: ['step'],
             endSequence: ['noChange']
@@ -375,7 +327,10 @@ describe('driller', function () {
 
                 driller = new Driller({
                     stepCount: 0,
-                    startSequence: ['noChange']
+                    startSequence: ['noChange'],
+                    startPosition: { 
+                        coords: [2, 2]
+                    }
                 });
 
             });
@@ -383,29 +338,29 @@ describe('driller', function () {
             it('should move forwards and backwards relative to the given direction', function () {
                 driller.direction = 0;
                 driller.adjustPosition('step');
-                expect(driller.coords).toEqual([1,0]);
+                expect(driller.coords).toEqual([3,2]);
                 driller.direction = 1;
                 driller.adjustPosition('step');
-                expect(driller.coords).toEqual([1,1]);
+                expect(driller.coords).toEqual([3,3]);
                 driller.direction = 2;
                 driller.adjustPosition('step');
-                expect(driller.coords).toEqual([0, 1]);
+                expect(driller.coords).toEqual([2, 3]);
                 driller.direction = 3;
                 driller.adjustPosition('step');
-                expect(driller.coords).toEqual([0,0]);
+                expect(driller.coords).toEqual([2,2]);
 
                 driller.direction = 0;
                 driller.adjustPosition('back');
-                expect(driller.coords).toEqual([-1,0]);
+                expect(driller.coords).toEqual([1,2]);
                 driller.direction = 1;
                 driller.adjustPosition('back');
-                expect(driller.coords).toEqual([-1,-1]);
+                expect(driller.coords).toEqual([1,1]);
                 driller.direction = 2;
                 driller.adjustPosition('back');
-                expect(driller.coords).toEqual([0, -1]);
+                expect(driller.coords).toEqual([2, 1]);
                 driller.direction = 3;
                 driller.adjustPosition('back');
-                expect(driller.coords).toEqual([0,0]);
+                expect(driller.coords).toEqual([2,2]);
 
             });
 
@@ -419,47 +374,127 @@ describe('driller', function () {
 
             it('should take front foot into account when choosing direction change', function () {
                 driller.frontFoot = 'Left';
-                driller.adjustPosition('rotateRight');
+                driller.adjustPosition('rotateOut');
                 expect(driller.direction).toEqual(1);
                 driller.frontFoot = 'Right';
-                driller.adjustPosition('rotateRight');
+                driller.adjustPosition('rotateOut');
                 expect(driller.direction).toEqual(0);
-                driller.adjustPosition('rotateLeft');
+                driller.adjustPosition('rotateIn');
                 expect(driller.direction).toEqual(1);
                 driller.frontFoot = 'Left';
-                driller.adjustPosition('rotateLeft');
+                driller.adjustPosition('rotateIn');
                 expect(driller.direction).toEqual(0);
             });
 
             it('should choose move sideways based on frontFoot and current direction', function () {
                 driller.frontFoot = 'Left';
-                driller.adjustPosition('side1');
-                expect(driller.coords).toEqual([0,1]);
+                driller.adjustPosition('out');
+                expect(driller.coords).toEqual([2,3]);
                 driller.frontFoot = 'Right';
-                driller.adjustPosition('side1');
-                expect(driller.coords).toEqual([0,0]);
+                driller.adjustPosition('out');
+                expect(driller.coords).toEqual([2,2]);
                  
                 driller.frontFoot = 'Left';
-                driller.adjustPosition('side2');
-                expect(driller.coords).toEqual([0,-1]);
+                driller.adjustPosition('in');
+                expect(driller.coords).toEqual([2,1]);
                 driller.frontFoot = 'Right';
-                driller.adjustPosition('side2');
-                expect(driller.coords).toEqual([0,0]);
+                driller.adjustPosition('in');
+                expect(driller.coords).toEqual([2,2]);
 
                 driller.direction = 1;
                 driller.frontFoot = 'Left';
-                driller.adjustPosition('side2');
-                expect(driller.coords).toEqual([1,0]);
+                driller.adjustPosition('in');
+                expect(driller.coords).toEqual([3,2]);
             });
 
+            it('should fire an event on every movement', function () {
+                var spy = jasmine.createSpy();
+                driller.on('step', spy);
+                driller.adjustPosition('step');
+                expect(spy).toHaveBeenCalled();
+                expect(spy.mostRecentCall.args[0]).toEqual({
+                    direction: 'North',
+                    frontFoot: 'Right',
+                    lastStep: 'step',
+                    coords: driller.coords[0] + ':' + driller.coords[1]
+                });
+            });
         });
 
         describe('step selection' , function () {
+            describe('bursts', function () {
+
+            });
             describe('disabling and enabling steps', function () {
 
             });
+            describe('moving in a limited space', function () {
+                it('should not allow stepping outside the parade ground', function () {
+                    Driller.addDiscipline({
+                        name: 'testMoving',
+                        steps: {
+                            noChange: {
+                                frontFoot: 0,
+                                move: [0, 0],
+                                direction: 0
+                            },
+                            stepForward: {
+                                frontFoot: 'Left',
+                                move: [1, 0],
+                                direction: 0
+                            },
+                            stepSideways: {
+                                frontFoot: 'Left',
+                                move: [0, 1],
+                                direction: 0
+                            }
+                        },
+                        startSequence: ['noChange'],
+                        endSequence: ['noChange']
+
+                    });
+                    driller = new Driller({
+                        areaLength: 1,
+                        areaWidth: 1,
+                        discipline: 'testMoving'
+                    });
+
+                    expect(driller.validateStep('stepForward')).toBeFalsy();
+                    expect(driller.validateStep('stepSideways')).toBeFalsy();
+                    expect(driller.validateStep('noChange')).toBeTruthy();
+                });
+                
+            });
         });
-        
+
+        describe('timings', function () {
+            beforeEach(function () {
+                driller = new Driller({
+                    startSequence: ['noChange'],
+                    minTime: 2,
+                    maxTime: 4,
+                    avgTime: 3
+                });
+            });
+            it('should not exceed maximum time allowed', function () {
+                spyOn(Math, 'random').andCallFake(function () {
+                    return 6;
+                });
+                expect(driller.getTimeInterval()).toBe(4000);
+            });
+
+            it('should not be less than minimum time allowed', function () {
+                spyOn(Math, 'random').andCallFake(function () {
+                    return -6;
+                });
+                expect(driller.getTimeInterval()).toBe(2000);
+            });
+
+            it('should gradually speed up when specfied', function () {
+
+            });
+
+        });
 
     });
 });

@@ -20,7 +20,9 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
         maxTime: 4,
         avgTime: 3,
         avgWeight: 1,
-        stepCount: 20 // -1 for infinite
+        areaWidth: 4,
+        areaLength: 4,
+        stepCount: -1 // -1 for infinite
     };
 
     Driller.addDiscipline = function (config) {
@@ -100,39 +102,57 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             }
         },
         getNextStepName: function (closing) {
+            var step;
             if (closing) {
-                return this.endSequence.length ? this.endSequence.shift(): undefined;
+                step = this.endSequence.length ? this.endSequence.shift(): undefined;
             } else if (this.startSequence.length) {
-                return this.startSequence.shift();
+                step = this.startSequence.shift();
             } else {
-                return this.getValidStep();
+                step = this.getRandomStep();
             }
+            if (!step) {
+                return;
+            }
+            return this.validateStep(step) ? step : this.getNextStepName(closing);
         },
-        getValidStep: function () {
+        getRandomStep: function () {
             return utils.pickRandomProperty(this.conf.steps);
         },
-        adjustPosition: function (step) {
+        validateStep: function (step) {
+            var newPosition = this.adjustPosition(step, true);
+            return (newPosition[0] >= 0 && newPosition[1] >= 0 && newPosition[1] < this.conf.areaWidth && newPosition[0] < this.conf.areaLength);
+        },
+        adjustPosition: function (step, dummy) {
             var moveMatrix,
                 leftToRight,
-                frontToBack;
+                frontToBack,
+                coords,
+                currentStep,
+                direction,
+                frontFoot;
 
-            this.currentStep = this.conf.steps[step];
-            if (!this.currentStep) {
+            currentStep = this.conf.steps[step];
+            if (!currentStep) {
+                // if (dummy) {
+                //     return [1000000000, 1000000000];
+                // } else {
                 throw('invalid step name: ' + step);
+                // }
             }
-            this.direction = (this.direction + ((this.frontFoot === L ? 1 : -1) * this.currentStep.direction) + 4) % 4;
+            direction = (this.direction + ((this.frontFoot === L ? 1 : -1) * currentStep.direction) + 4) % 4;
     
-            leftToRight = this.currentStep.move[1] * (this.frontFoot === L ? 1: -1);
-            frontToBack = this.currentStep.move[0];
+            leftToRight = currentStep.move[1] * (this.frontFoot === L ? 1: -1);
+            frontToBack = currentStep.move[0];
 
-            if (this.currentStep.frontFoot) {
+            if ('frontFoot' in currentStep) {
 
-                this.frontFoot =    this.currentStep.frontFoot === L ? L :
-                                    this.currentStep.frontFoot === R ? R :
-                                    this.frontFoot === R ? L : R;
+                frontFoot =    currentStep.frontFoot === L ? L :
+                                currentStep.frontFoot === R ? R :
+                                currentStep.frontFoot === 0 ? this.frontFoot :
+                                this.frontFoot === R ? L : R;
             }
             
-            switch (this.direction) {
+            switch (direction) {
             
             case 0:
                 moveMatrix = [frontToBack, leftToRight];
@@ -149,29 +169,43 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
             }
 
-            this.coords = [this.coords[0] + moveMatrix[0], this.coords[1] + moveMatrix[1]];
+            coords = [this.coords[0] + moveMatrix[0], this.coords[1] + moveMatrix[1]];
 
-            this.announceStep(step);
+            if (dummy) {
+                return coords;
+            } else {
+                this.coords = coords;
+                this.currentStep = currentStep;
+                this.direction = direction;
+                this.frontFoot = frontFoot;
+                this.announceStep(step);    
+            }
+            
         },
 
         getTimeInterval: function () {
-            var time = ((((this.conf.maxTime - this.conf.minTime) * Math.random())/(this.conf.avgWeight + 1)) + (this.conf.avgTime *(this.conf.avgWeight/(this.conf.avgWeight + 1)))) + this.conf.minTime;
+            var min = 2,
+                availableInterval = this.conf.maxTime - this.conf.minTime;
+
+            var time = (min + (availableInterval * Math.random()));
             time = Math.max(Math.min(this.conf.maxTime, time), this.conf.minTime);
-            //console.log(time);
-            return 1000;
-            // return time * 1000;
-        },
-        updateSettings: function (conf) {
-            this.conf = utils.extendObj(this.conf, conf);
-            this.start();
-        },
-        defineStep: function (name, conf) {
-            this.steps[name] = conf;
-        },
-        undefineStep: function (name) {
-            if (this.steps[name]) {
-                delete this.steps[name];
-            }
+            return time * 1000;
+
+
+            // var time = (((availableInterval * Math.random())/(this.conf.avgWeight + 1)) + (this.conf.avgTime *(this.conf.avgWeight/(this.conf.avgWeight + 1)))) + this.conf.minTime;
+
+        // },
+        // updateSettings: function (conf) {
+        //     this.conf = utils.extendObj(this.conf, conf);
+        //     this.start();
+        // },
+        // defineStep: function (name, conf) {
+        //     this.steps[name] = conf;
+        // },
+        // undefineStep: function (name) {
+        //     if (this.steps[name]) {
+        //         delete this.steps[name];
+        //     }
         }
     };
 

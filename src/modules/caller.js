@@ -9,19 +9,13 @@ define(['utils'], function (utils) {
         W = 'West',
         compass = [N, E, S, W];
 
-    var Caller = function (driller, conf) {
-        // var discipline = (conf && conf.discipline) || Caller.defaults.discipline;
-        // this.conf = utils.extendObj({}, Caller.defaults, Caller.disciplineConfigs[discipline], conf || {});
+    var Caller = function (driller) {
+        if (!driller.on) {
+            throw('driller must implement event emitter');
+        }
         this.driller = driller;
         this.init();
     };
-
-    Caller.addDiscipline = function (config) {
-        Caller.disciplineConfigs[config.name] = config;
-        utils.defineProps(config.steps);
-    };
-
-    Caller.disciplineConfigs = {};
 
     Caller.prototype = {
         init: function () {
@@ -33,14 +27,14 @@ define(['utils'], function (utils) {
             this.driller.on('step', this.callStep, this);
         },
         callStep: function (state) {
-            this.speaker.src = 'assets/audio/' + utils.fromCamel(this.driller.discipline) + '/' + utils.fromCamel(state.lastStep) + '.ogg';
+            this.speaker.src = 'assets/audio/' + utils.toDashed(this.driller.discipline) + '/' + utils.toDashed(state.lastStep) + '.ogg';
             this.speaker.play();
             console.log(utils.camelToSpaced(state.lastStep));
-        },
-        preloadAudio: function () {
-            var steps = this.driller.conf.steps;
-//getOwnPropertyNames
-        }
+        }//,
+//         preloadAudio: function () {
+//             var steps = this.driller.conf.steps;
+// //getOwnPropertyNames
+//         }
     };
 
     return Caller;
