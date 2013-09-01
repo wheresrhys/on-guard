@@ -15,13 +15,18 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
     };
 
     Driller.defaults = {
+        discipline: 'taiChi',
         minTime: 2,
         maxTime: 4,
         avgTime: 3,
-        avgWeight: 1
+        avgWeight: 1,
+        stepCount: 20 // -1 for infinite
     };
 
     Driller.addDiscipline = function (config) {
+        if (!config.name) {
+            throw('name must be defined for any discipline config');
+        }
         Driller.disciplineConfigs[config.name] = config;
         utils.defineProps(config.steps);
     };
@@ -29,14 +34,19 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
     Driller.disciplineConfigs = {};
 
     Driller.prototype = {
-        init: function () {
-            this.coords = [0,0];
-            this.frontFoot = null;
-            this.direction = 0;
+        init: function (dontStart) {
+            var startPos = this.conf.startPosition || {};
+            this.coords = startPos.coords || [0,0];
+            this.frontFoot = startPos.frontFoot || null;
+            this.direction = startPos.direction || 0;
+            this.stepCount = this.conf.stepCount;
+            if (this.conf.autoplay && !dontStart) {
+                this.start();
+            }
         },
         start: function (reset) {
             if (reset) {
-                this.init();
+                this.init(true);
             }
             this.fire('started');
             this.startSequence = this.conf.startSequence.slice();
@@ -44,6 +54,9 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             this.takeStep();
         },
         announceStep: function (step) {
+            if (!this.conf.steps[step]) {
+                throw('invalid step name: ' + step);
+            }
             this.fire('step', {
                 direction: compass[this.direction],
                 frontFoot: this.frontFoot,
@@ -58,12 +71,25 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             this.fire('stopped');
         },
         takeStep: function (closing) {
-            var that = this;
-            var step = this.getNextStepName(closing);
+            var that = this,
+                step;
+            
+            if (!this.stepCount && !closing && !this.startSequence.length) {
+                return this.stop();
+            }
+            if (this.stepCount && !this.startSequence.length) {
+                this.stepCount--;
+            }
+            
+            step = this.getNextStepName(closing);
+            
+            
             if (closing) {
-                this.adjustPosition(step);
-                if (this.endSequence.length) {
-                    that.takeStep(closing);
+                if (step) {
+                    this.adjustPosition(step);
+                    if (this.endSequence.length) {
+                        that.takeStep(closing);
+                    }
                 }
             } else {
                 this.timer = setTimeout(function () {
@@ -75,7 +101,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
         },
         getNextStepName: function (closing) {
             if (closing) {
-                return this.endSequence.shift();
+                return this.endSequence.length ? this.endSequence.shift(): undefined;
             } else if (this.startSequence.length) {
                 return this.startSequence.shift();
             } else {
@@ -89,10 +115,14 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             var moveMatrix,
                 leftToRight,
                 frontToBack;
+
             this.currentStep = this.conf.steps[step];
-            this.direction = (this.direction + ((this.frontFoot === R ? 1 : -1) * this.currentStep.direction) + 4) % 4;
+            if (!this.currentStep) {
+                throw('invalid step name: ' + step);
+            }
+            this.direction = (this.direction + ((this.frontFoot === L ? 1 : -1) * this.currentStep.direction) + 4) % 4;
     
-            leftToRight = this.currentStep.move[1] * (this.currentStep.frontFoot === L ? -1: 1);
+            leftToRight = this.currentStep.move[1] * (this.frontFoot === L ? 1: -1);
             frontToBack = this.currentStep.move[0];
 
             if (this.currentStep.frontFoot) {

@@ -33,7 +33,8 @@ define(function () {
             }
 
             if (extenders.length > 1) {
-                extender = extendObj.apply(this, extenders);
+                extender = extenders.pop();
+                base = extendObj.apply(this, Array.prototype.concat.apply([base], extenders));
             } else {
                 extender = extenders[0];
             }
@@ -46,19 +47,19 @@ define(function () {
         },
         toCamel = function (text) {
             return text.replace(/\-\w/g, function ($0) {
-                return $0.toUpperCase();
+                return $0.charAt(1).toUpperCase();
             });
         },
-        fromCamel = function(text) {
-            return text.replace(/\w[A-Z]/g, function ($0) {
+        toDashed = function(text) {
+            return text.replace(/[^A-Z][A-Z]/g, function ($0) {
                 return $0.charAt(0) + '-' + $0.charAt(1).toLowerCase();
             });
         },
         dashedToSpaced = function (text) {
-            return text.replace('-', ' ');
+            return text.replace(/-/g, ' ');
         },
         camelToSpaced = function (text) {
-            return fromCamel(text).replace('-', ' ');
+            return dashedToSpaced(toDashed(text));
         };
 
     return {
@@ -66,7 +67,7 @@ define(function () {
         defineProps: defineProps,
         extendObj: extendObj,
         toCamel: toCamel,
-        fromCamel: fromCamel,
+        toDashed: toDashed,
         dashedToSpaced: dashedToSpaced,
         camelToSpaced: camelToSpaced
     };

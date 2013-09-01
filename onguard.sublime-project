@@ -1,7 +1,8 @@
 {
 	"folders":	[
 		{
-			"path": "/Users/wheresrhys/Sites/on-guard"
+			"path": "/Users/wheresrhys/Sites/on-guard",
+            "folder_exclude_patterns": [".grunt", "node_modules"]
 		}
 	],
     "build_systems": [

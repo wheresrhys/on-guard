@@ -73,7 +73,6 @@
                 for (var i = 0, il = events.length; i<il; i++) {
                     doOn.call(this, callbacks, events[i], callback, context);
                 }
-
             },
 
             off = function (event, callback, context) {
@@ -89,8 +88,6 @@
                 for (var i = 0, il = events.length; i<il; i++) {
                     doOff.call(this, callbacks, events[i], callback, context);
                 }
-
-                
             },
 
             fire = function (event, result) {
@@ -100,9 +97,6 @@
                 for (var i = 0, il = events.length; i<il; i++) {
                     doFire.call(this, callbacks, events[i], result);
                 }
-
-                
-                
             },
 
             getCallbacks = function (obj, dontSet) {

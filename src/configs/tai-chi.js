@@ -14,7 +14,7 @@ define({
         shift: {
             frontFoot: 1,
             move: [0, 0],
-            direction: -1 // indicates turning away from front foot
+            direction: 1 // indicates turning away from front foot
         },
         'switch': {
             frontFoot: 1,
@@ -36,7 +36,7 @@ define({
             enumerable: false,
             value: {
                 frontFoot: 'Left',
-                move: [-0.5, 0.5],
+                move: [0, 0],
                 direction: 0
             }
         },
@@ -45,7 +45,7 @@ define({
             enumerable: false,
             value: {
                 frontFoot: false,
-                move: [0.5, -0.5],
+                move: [0, 0],
                 direction: 0
             }
         }
