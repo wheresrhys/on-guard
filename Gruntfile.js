@@ -43,11 +43,12 @@ module.exports = function(grunt) {
 
     jasmine: {
       run: {
-        src: ['src/**/*.js', '!src/main.js'],
+        src: ['src/**/*.js', '!src/main.js', '!src/configs/**/*.js'],
         options: {
             outfile: 'specRunner.html',
             keepRunner: true,
             specs: ['test/specs/**/*.js'],
+            helpers: ['test/helpers/**/*.js'],
             template: require('grunt-template-jasmine-istanbul'),
             templateOptions: {
                 coverage: 'test/coverage.json',
@@ -138,8 +139,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   
   // Default task.
-  grunt.registerTask('test', [//'jshint', 
-    'jasmine:run']);
+  grunt.registerTask('test', ['jasmine:run', 'cleanRunner']);
   grunt.registerTask('cleanRunner', function () {
     var done = this.async();
     var fs = require('fs');
@@ -147,11 +147,14 @@ module.exports = function(grunt) {
       if (err) throw err;
       fs.writeFile('specRunner.html', data.replace('url = \'./.grunt/grunt-contrib-jasmine/\' + url;', '').replace('\'.grunt/grunt-contrib-jasmine/grunt-template-jasmine-istanbul/reporter.js\',\'./.grunt/grunt-contrib-jasmine/reporter.js\'', ''), function (err) {
         if (err) throw err;
+        done();
       });
     });
 
     
   });
+
+  // add to teh build process something that creates a spec file for modules not having one built already and then halts the build
   
   grunt.registerTask('build', ['clean', 'concat', 'uglify']);
   grunt.registerTask('default', ['test', 'build']);
