@@ -21,7 +21,6 @@ define(['utils', 'domReady!'], function (utils) {
                     this.drawCaption();
                     this.drawGrid();
                     this.setPosition(this.driller.coords, this.driller.direction, 'center');
-
                 }
             }, this);
             this.driller.on('stopped', this.undrawGrid, this);
@@ -64,7 +63,7 @@ define(['utils', 'domReady!'], function (utils) {
         },
         undrawGrid: function () {
             this.domNode.innerHTML = '';
-            this.driller.off(undefined, undefined, this);
+            // this.driller.off(undefined, undefined, this);
         },
         setPosition: function(coords, direction, frontFoot) {
             

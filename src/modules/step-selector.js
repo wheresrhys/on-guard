@@ -7,6 +7,9 @@ define(['utils', 'domReady!'], function (utils) {
 
     StepSelector.prototype = {
         init: function () {
+            var heading = document.createElement('p');
+            heading.textContent = 'Choose which steps to include in your drill',
+            this.domNode.appendChild(heading);
             this.createInputs();
         },
         createInputs: function () {

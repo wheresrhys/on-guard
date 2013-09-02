@@ -8,6 +8,8 @@
     <h1>On guard</h1>
     <p>Change the settings below to change how your driller will call</p>
     <form id="onGuardControlPanel" style="float:left;width:33%;">
+        <fieldset id="stepSelector">
+        </fieldset>
         <fieldset>
             <label for="minTime">Minimum time between calls</label>
             <input type="number" id="minTime" min="0.5" max="5"><br>
@@ -18,12 +20,13 @@
             <label for="areaLength">Area width (measured in Tai Chi steps. Set to -1 for no limit)</label>
             <input type="number" id="areaLength" min="-1" max="10" ><br>
             <label for="stepCount">Maximum number of steps (Set to -1 for no limit)</label>
-            <input type="number" id="stepCount" min="-1"><br>
-            <input type="button" id="start" value="Start"><br>
-            <input type="button" id="stop" value="Stop"><br>
+            <input type="number" id="stepCount" min="-1">
         </fieldset>
-        <fieldset id="stepSelector">
+        <fieldset>
+            <input type="button" id="start" value="Start">
+            <input type="button" id="stop" value="Stop">
         </fieldset>
+        
     </form>
     <div id="visualiser" style="float:left;width:33%;">
 
@@ -43,6 +46,7 @@
                 <br> add 'all' to event emitter
                 <br> design and skinning
                 <br> option to delay start (default to 2s)
+                <br> sort out how driller gets its config changed, how persistent etc
             </p>
 </body>
 </html>
