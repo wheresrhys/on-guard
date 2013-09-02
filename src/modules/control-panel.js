@@ -1,56 +1,44 @@
 define(['domReady!'], function () {
     
-    var bound,
-        theDriller,
-        form = document.getElementById('onGuardControlPanel'),
-        fieldList = ['minTime','maxTime','areaWidth','areaLength','stepCount'],
-        actionList = ['start', 'stop'],
+    var ControlPanel = function (controller, conf) {
+        this.fieldList = conf.fieldList;
+        this.actionList = conf.actionList;
+        this.controller = controller;
+        this.form = document.getElementById(conf.formId);
+    };
 
-        initOrUnbind = function (driller) {
-            if (bound) {
-                unbindFromDriller();
+    ControlPanel.prototype = {
+        init: function (controller, conf) {
+            for(var i = 0, il = this.fieldList.length; i<il; i++) {
+                this.bindField(this.fieldList[i]);
             }
-            bindToDriller(driller);
+            for(i = 0, il = this.actionList.length; i<il; i++) {
+                this.bindAction(this.actionList[i]);
+            }
         },
 
-        bindToDriller = function (driller) {
-        
-            theDriller = driller;
-            for(var i = 0, il = fieldList.length; i<il; i++) {
-                bindField(fieldList[i]);
-            }
-            for(i = 0, il = actionList.length; i<il; i++) {
-                bindAction(actionList[i]);
-            }
-            bound = true;
-
-        },
-
-        unbindFromDriller = function () {
-
-        },
-
-        bindField = function (fieldName) {
+        bindField: function (fieldName) {
             var field = document.getElementById(fieldName),
-                forcesRestart = !!field['data-restart'];
-            field.value = theDriller.conf[fieldName];
+                forcesRestart = !!field['data-restart'],
+                that = this;
+            field.value = this.controller.conf[fieldName];
             field.addEventListener('change', function () {
-                theDriller.conf[fieldName] = field.value;
+                this.controller.conf[fieldName] = field.value;
                 if (forcesRestart) {
-                    theDriller.stop(true);
-                    theDriller.start(true);
+                    this.controller.stop(true);
+                    this.controller.start(true);
                 }
             });
         },
-        bindAction = function (actionName) {
-            var button = document.getElementById(actionName);
+        bindAction: function (actionName) {
+            var button = document.getElementById(actionName),
+                that = this;
             button.addEventListener('click', function () {
-                theDriller[actionName]();
+                that.controller[actionName]();
             });
-        };
-    
-    return {
-        bindToDriller: initOrUnbind
+        }
     };
+    
+    return ControlPanel;
 
 });

@@ -52,14 +52,14 @@ define(['domReady!'], function () {
             if (this.position) {
                 this.unshowPosition();
             }
-            var cell = this.grid.getElementsByTagName('tr')[coords[0]]
+            var cell = this.grid.getElementsByTagName('tr')[(this.conf.areaLength - 1) - coords[0]]
                     .getElementsByTagName('td')[coords[1]];
 
             cell.style.backgroundColor = 'red';
             this.position = coords;
         },
         unshowPosition: function () {
-            var cell = this.grid.getElementsByTagName('tr')[this.position[0]]
+            var cell = this.grid.getElementsByTagName('tr')[(this.conf.areaLength - 1) - this.position[0]]
                     .getElementsByTagName('td')[this.position[1]];
             cell.style.backgroundColor = 'white';
         }

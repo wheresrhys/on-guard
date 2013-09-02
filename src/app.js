@@ -5,7 +5,7 @@ define([
     'modules/simple-visualiser',
     'modules/control-panel',
     'configs/tai-chi'
-], function (doc, Driller, Caller, Visualiser, controlPanel, taiChiConfig) {
+], function (doc, Driller, Caller, Visualiser, ControlPanel, taiChiConfig) {
 	'use strict';
     return {
         init: function () {
@@ -16,7 +16,11 @@ define([
             });
 
             var caller = new Caller(driller);
-            controlPanel.bindToDriller(driller);
+            var controlPanel = new Controller(driller, {
+                fieldList: ['minTime','maxTime','areaWidth','areaLength','stepCount'],
+                actionList: ['start', 'stop'],
+                formId: 'onGuardControlPanel'
+            });
             var visualiser = new Visualiser(driller, 'visualiser');
         }
     };
