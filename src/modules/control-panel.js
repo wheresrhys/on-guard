@@ -5,6 +5,7 @@ define(['domReady!'], function () {
         this.actionList = conf.actionList;
         this.controller = controller;
         this.form = document.getElementById(conf.formId);
+        this.init();
     };
 
     ControlPanel.prototype = {
@@ -24,7 +25,7 @@ define(['domReady!'], function () {
             field.addEventListener('change', function () {
                 this.controller.conf[fieldName] = field.value;
                 var data = {};
-                data[field] = field.value;
+                data[fieldName] = field.value;
                 this.controller.fire('configChange', data);
             });
         },

@@ -15,8 +15,8 @@ define([
                 discipline: 'taiChi'
             });
 
-            var caller = new Caller(driller);
-            var controlPanel = new Controller(driller, {
+            //var caller = new Caller(driller);
+            var controlPanel = new ControlPanel(driller, {
                 fieldList: ['minTime','maxTime','areaWidth','areaLength','stepCount'],
                 actionList: ['start', 'stop'],
                 formId: 'onGuardControlPanel'
