@@ -19,15 +19,13 @@ define(['domReady!'], function () {
 
         bindField: function (fieldName) {
             var field = document.getElementById(fieldName),
-                forcesRestart = !!field['data-restart'],
                 that = this;
             field.value = this.controller.conf[fieldName];
             field.addEventListener('change', function () {
                 this.controller.conf[fieldName] = field.value;
-                if (forcesRestart) {
-                    this.controller.stop(true);
-                    this.controller.start(true);
-                }
+                var data = {};
+                data[field] = field.value;
+                this.controller.fire('configChange', data);
             });
         },
         bindAction: function (actionName) {
