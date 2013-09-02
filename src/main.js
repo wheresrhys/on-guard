@@ -1,5 +1,6 @@
 require.config({
 	paths: {
+		domReady: '../lib/requirejs-domready/domReady'
 	},
 	baseUrl: 'src',
 	shim: {

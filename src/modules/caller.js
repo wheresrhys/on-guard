@@ -29,7 +29,6 @@ define(['utils'], function (utils) {
         callStep: function (state) {
             this.speaker.src = 'assets/audio/' + utils.toDashed(this.driller.discipline) + '/' + utils.toDashed(state.lastStep) + '.ogg';
             this.speaker.play();
-            console.log(utils.camelToSpaced(state.lastStep));
         }//,
 //         preloadAudio: function () {
 //             var steps = this.driller.conf.steps;

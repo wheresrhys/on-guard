@@ -1,8 +1,11 @@
 define([
+    'domReady!',
 	'modules/driller',
     'modules/caller',
+    'modules/simple-visualiser',
+    'modules/control-panel',
     'configs/tai-chi'
-], function (Driller, Caller, taiChiConfig) {
+], function (doc, Driller, Caller, Visualiser, controlPanel, taiChiConfig) {
 	'use strict';
     return {
         init: function () {
@@ -13,15 +16,8 @@ define([
             });
 
             var caller = new Caller(driller);
-
-            driller.start();
-
-            setTimeout(function () {
-                driller.stop();
-                setTimeout(function () {
-                   // driller.start();
-                }, 5000);
-            }, 20000);
+            controlPanel.bindToDriller(driller);
+            var visualiser = new Visualiser(driller, 'visualiser');
         }
     };
 });

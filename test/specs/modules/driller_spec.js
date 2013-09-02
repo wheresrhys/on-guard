@@ -135,8 +135,6 @@ describe('modules/driller', function () {
                     }
                 }
                 expect(foundProp).toBeFalsy();
-                
-
             });
 
             it('should use the default start position', function () {
@@ -419,6 +417,8 @@ describe('modules/driller', function () {
                     coords: driller.coords[0] + ':' + driller.coords[1]
                 });
             });
+
+
         });
 
         describe('step selection' , function () {
@@ -497,4 +497,5 @@ describe('modules/driller', function () {
         });
 
     });
+
 });

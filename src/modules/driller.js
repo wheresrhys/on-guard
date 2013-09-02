@@ -18,8 +18,8 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
         discipline: 'taiChi',
         minTime: 2,
         maxTime: 4,
-        avgTime: 3,
-        avgWeight: 1,
+        // avgTime: 3,
+        // avgWeight: 1,
         areaWidth: 4,
         areaLength: 4,
         stepCount: -1 // -1 for infinite
@@ -42,6 +42,8 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             this.frontFoot = startPos.frontFoot || null;
             this.direction = startPos.direction || 0;
             this.stepCount = this.conf.stepCount;
+            this.conf.minTime = Math.max(this.conf.minTime, 0.5);
+            this.conf.maxTime = Math.max(this.conf.maxTime, this.conf.minTime);
             if (this.conf.autoplay && !dontStart) {
                 this.start();
             }
@@ -49,8 +51,11 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
         start: function (reset) {
             if (reset) {
                 this.init(true);
+            } else if (this.running === true) {
+                return;
             }
             this.fire('started');
+            this.running = true;
             this.startSequence = this.conf.startSequence.slice();
             this.announceStep(this.startSequence.shift());
             this.takeStep();
@@ -66,11 +71,16 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 coords: this.coords[0] + ':' + this.coords[1]
             });
         },
-        stop: function () {
-            clearTimeout(this.timer);
-            this.endSequence = this.conf.endSequence.slice();
-            this.takeStep(true);
-            this.fire('stopped');
+        stop: function (abort) {
+            if (this.running === true) {
+                clearTimeout(this.timer);
+                if (!abort) {
+                    this.endSequence = this.conf.endSequence.slice();
+                    this.takeStep(true);
+                }
+                this.fire('stopped');
+                this.running = false;
+            }
         },
         takeStep: function (closing) {
             var that = this,
@@ -194,11 +204,16 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
             // var time = (((availableInterval * Math.random())/(this.conf.avgWeight + 1)) + (this.conf.avgTime *(this.conf.avgWeight/(this.conf.avgWeight + 1)))) + this.conf.minTime;
 
-        // },
-        // updateSettings: function (conf) {
-        //     this.conf = utils.extendObj(this.conf, conf);
-        //     this.start();
-        // },
+        },
+
+
+        // ???NEED TO WRITE TESTS FOR this
+        //             it('should be affected by live changes to the config', function () {
+
+        //     });
+        updateSettings: function (conf) {
+            this.conf = utils.extendObj(this.conf, conf);
+            
         // defineStep: function (name, conf) {
         //     this.steps[name] = conf;
         // },
