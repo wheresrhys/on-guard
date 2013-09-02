@@ -40,16 +40,19 @@ describe('modules/caller', function () {
         });
 
         it('should play the correct audio', function () {
-            caller = new Caller(eventEmitter.apply({
-                discipline: 'hongKong'
-            }));
-            caller.callStep({
-                direction: 'North',
-                frontFoot: 'Left',
-                lastStep: 'testStep',
-                coords: '0:0'
-            });
-            expect(document.getElementsByTagName('audio')[0].getAttribute('src')).toBe('assets/audio/hong-kong/test-step.ogg');
+            var audioTag = document.createElement('audio');
+            if (typeof audioTag.play === 'function') {
+                caller = new Caller(eventEmitter.apply({
+                    discipline: 'hongKong'
+                }));
+                caller.callStep({
+                    direction: 'North',
+                    frontFoot: 'Left',
+                    lastStep: 'testStep',
+                    coords: '0:0'
+                });
+                expect(document.getElementsByTagName('audio')[0].getAttribute('src')).toBe('assets/audio/hong-kong/test-step.ogg');
+            }
         });
     });
 });

@@ -27,7 +27,7 @@ define(['utils', 'domReady!'], function (utils) {
             this.driller.on('stopped', this.undrawGrid, this);
             this.driller.on('step', function (state) {
                 if(this.conf.areaWidth > 0 && this.conf.areaLength > 0) {
-                    this.setPosition(state.coords.split(':'), state.direction, state.frontFoot);
+                    this.setPosition(state.coords, state.direction, state.frontFoot);
                     this.updateCaption(utils.camelToSpaced(state.lastStep));
                 }
             }, this);

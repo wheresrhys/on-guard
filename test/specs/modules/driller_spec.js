@@ -414,7 +414,7 @@ describe('modules/driller', function () {
                     direction: 'North',
                     frontFoot: 'Right',
                     lastStep: 'step',
-                    coords: driller.coords[0] + ':' + driller.coords[1]
+                    coords: [3, 2]
                 });
             });
 

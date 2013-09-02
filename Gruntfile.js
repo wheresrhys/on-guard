@@ -75,12 +75,15 @@ module.exports = function(grunt) {
                             requireConfig: {
                                 // 2. use the baseUrl you want
                                 baseUrl: './src/',
+                                paths: {
+                                    domReady: '../lib/requirejs-domready/domReady'
+                                },
                                 // 3. pass paths of the sources being instrumented as a configuration option
                                 //    these paths should be the same as the jasmine task's src
                                 //    unfortunately, grunt.config.get() doesn't work because the config is just being evaluated
                                 config: {
                                     instrumented: {
-                                        src: grunt.file.expand('src/**/*.js')
+                                        src: grunt.file.expand(['src/**/*.js', 'lib/requirejs-domready/domReady.js'])
                                     }
                                 },
                                 // 4. use this callback to read the paths of the sources being instrumented and redirect requests to them appropriately

@@ -16,8 +16,8 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
     Driller.defaults = {
         discipline: 'taiChi',
-        minTime: 2,
-        maxTime: 4,
+        minTime: 1,
+        maxTime: 2,
         // avgTime: 3,
         // avgWeight: 1,
         areaWidth: 4,
@@ -68,7 +68,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 direction: compass[this.direction],
                 frontFoot: this.frontFoot,
                 lastStep: step,
-                coords: this.coords[0] + ':' + this.coords[1]
+                coords: this.coords.slice()
             });
         },
         stop: function (abort) {
