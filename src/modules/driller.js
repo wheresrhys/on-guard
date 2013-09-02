@@ -16,6 +16,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
     Driller.defaults = {
         discipline: 'taiChi',
+        disabledSteps: [],
         minTime: 1,
         maxTime: 2,
         // avgTime: 3,
@@ -37,7 +38,14 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
     Driller.prototype = {
         init: function (dontStart) {
-            var startPos = this.conf.startPosition || {};
+            var startPos = this.conf.startPosition || {},
+                that = this;
+            this.disabledSteps = {};
+            if (this.conf.disabledSteps) {
+                this.conf.disabledSteps.map(function (item) {
+                    that.disabledSteps[item] = true;
+                });
+            }
             this.coords = startPos.coords || [0,0];
             this.frontFoot = startPos.frontFoot || null;
             this.direction = startPos.direction || 0;
@@ -129,6 +137,9 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             return utils.pickRandomProperty(this.conf.steps);
         },
         validateStep: function (step) {
+            if (this.disabledSteps[step]) {
+                return false;
+            }
             var newPosition = this.adjustPosition(step, true);
             return (newPosition[0] >= 0 && newPosition[1] >= 0 && newPosition[1] < this.conf.areaWidth && newPosition[0] < this.conf.areaLength);
         },
@@ -204,6 +215,12 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
             // var time = (((availableInterval * Math.random())/(this.conf.avgWeight + 1)) + (this.conf.avgTime *(this.conf.avgWeight/(this.conf.avgWeight + 1)))) + this.conf.minTime;
 
+        },
+        enableStep: function (step) {
+            this.disabledSteps[step] = false;
+        },
+        disableStep: function (step) {
+            this.disabledSteps[step] = true;
         },
 
 

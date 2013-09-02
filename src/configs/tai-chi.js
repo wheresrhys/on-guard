@@ -14,23 +14,23 @@ define({
         shift: {
             frontFoot: 1,
             move: [0, 0],
-            direction: 1 // indicates turning away from front foot
+            direction: 1
         },
         'switch': {
             frontFoot: 1,
             move: [0, 0],
             direction: 0
         },
-        // inside: {
-        //     frontFoot: 0,
-        //     move: [0, 1],
-        //     direction: 0
-        // },
-        // outside: {
-        //     frontFoot: 0,
-        //     move: [0, -1],
-        //     direction: 0
-        // },
+        inside: {
+            frontFoot: 0,
+            move: [0, 1],
+            direction: 0
+        },
+        outside: {
+            frontFoot: 0,
+            move: [0, -1],
+            direction: 0
+        },
         onGuard: {
             _propertyDefinition: true,
             enumerable: false,

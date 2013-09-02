@@ -426,7 +426,41 @@ describe('modules/driller', function () {
 
             });
             describe('disabling and enabling steps', function () {
-
+                Driller.addDiscipline({
+                    name: 'testDisabling',
+                    steps: {
+                        step1: {
+                            frontFoot: 0,
+                            move: [0, 0],
+                            direction: 0
+                        },
+                        step2: {
+                            frontFoot: 0,
+                            move: [0, 0],
+                            direction: 0
+                        }
+                    },
+                    startSequence: ['step1'],
+                    endSequence: ['step1']
+                });
+                it('should be possible to disable steps from config', function () {
+                    driller = new Driller({
+                        discipline: 'testDisabling',
+                        disabledSteps: ['step1']
+                    });
+                    expect(driller.validateStep('step1')).toBeFalsy();
+                    expect(driller.validateStep('step2')).toBeTruthy();
+                });
+                it('should be possible to enable and disable steps manually', function () {
+                    driller = new Driller({
+                        discipline: 'testDisabling'
+                    });
+                    expect(driller.validateStep('step1')).toBeTruthy();
+                    driller.disableStep('step1');
+                    expect(driller.validateStep('step1')).toBeFalsy();
+                    driller.enableStep('step1');
+                    expect(driller.validateStep('step1')).toBeTruthy();
+                });
             });
             describe('moving in a limited space', function () {
                 it('should not allow stepping outside the parade ground', function () {
@@ -451,7 +485,6 @@ describe('modules/driller', function () {
                         },
                         startSequence: ['noChange'],
                         endSequence: ['noChange']
-
                     });
                     driller = new Driller({
                         areaLength: 1,
@@ -490,7 +523,7 @@ describe('modules/driller', function () {
                 expect(driller.getTimeInterval()).toBe(2000);
             });
 
-            it('should gradually speed up when specfied', function () {
+            it('should gradually speed up when specified', function () {
 
             });
 
