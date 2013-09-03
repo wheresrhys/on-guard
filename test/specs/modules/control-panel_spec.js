@@ -21,7 +21,8 @@ describe('modules/control-panel', function () {
             field1,
             field2,
             button1,
-            button2;
+            button2,
+            initiallyTrue;
 
         beforeEach(function () {
             form = document.createElement('form');
@@ -37,6 +38,13 @@ describe('modules/control-panel', function () {
             button2.id = 'action2';
             form.appendChild(field2);
             form.appendChild(button2);
+            initiallyTrue = field1.cloneNode();
+            initiallyTrue.id = 'initiallyTrue';
+            initiallyTrue.type = 'checkbox';
+            form.appendChild(initiallyTrue);
+            initiallyFalse = initiallyTrue.cloneNode();
+            initiallyFalse.id = 'initiallyFalse';
+            form.appendChild(initiallyFalse);
             document.getElementsByTagName('body')[0].appendChild(form);
         });
 
@@ -51,7 +59,9 @@ describe('modules/control-panel', function () {
                 controller = eventEmitter.apply({
                     conf: {
                         field1: 'val1',
-                        field2: 'val2'
+                        field2: 'val2',
+                        initiallyTrue: true,
+                        initiallyFalse: false
                     },
                     action1: jasmine.createSpy(),
                     action2: jasmine.createSpy()
@@ -68,13 +78,15 @@ describe('modules/control-panel', function () {
             
             it('should set values from controller', function () {
                 new ControlPanel(controller, {
-                    fieldList: ['field1', 'field2']
+                    fieldList: ['field1', 'field2', 'initiallyTrue', 'initiallyFalse']
                 });
                 expect(field1.value).toBe('val1');
                 expect(field2.value).toBe('val2');
+                expect(initiallyTrue.checked).toBeTruthy();
+                expect(initiallyFalse.checked).toBeFalsy();
             });
 
-            it('should alert the controller of changes to bound properties', function () {
+            it('should alert the controller of changes to bound value fields', function () {
                 new ControlPanel(controller, {
                     fieldList: ['field1', 'field2']
                 });
@@ -95,6 +107,27 @@ describe('modules/control-panel', function () {
                     field2: 'newVal2'
                 });
                 expect(controller.conf.field2).toBe('newVal2');
+            });
+            it('should alert the controller of changes to boolean fields', function () {
+                new ControlPanel(controller, {
+                    fieldList: ['initiallyFalse']
+                });
+                spyOn(controller, 'fire');
+
+                initiallyFalse.checked = true;
+                TestHelpers.fireEvent(initiallyFalse, 'change');
+                expect(controller.fire.calls.length).toBe(1);
+                expect(controller.fire).toHaveBeenCalledWith('configChange', {
+                    initiallyFalse: true
+                });
+                expect(controller.conf.initiallyFalse).toBe(true);
+                initiallyFalse.checked = false;
+                TestHelpers.fireEvent(initiallyFalse, 'change');
+                expect(controller.fire.calls.length).toBe(2);
+                expect(controller.fire).toHaveBeenCalledWith('configChange', {
+                    initiallyFalse: false
+                });
+                expect(controller.conf.initiallyFalse).toBe(false);
             });
         });
 

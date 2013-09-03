@@ -28,17 +28,20 @@ define(['domReady!'], function () {
 
         bindField: function (fieldName) {
             var field = document.getElementById(fieldName),
-                that = this;
+                that = this,
+                valProp;
 
             if (!field) {
                 console.warn('missing field in control panel: ' + fieldName);
                 return;
             }
-            field.value = this.controller.conf[fieldName];
+            valProp = ['checkbox', 'radio'].indexOf(field.type) > -1 ? 'checked' : 'value';
+            field[valProp] = this.controller.conf[fieldName];
             field.addEventListener('change', function () {
-                that.controller.conf[fieldName] = field.value;
+                var value = field[valProp];
+                that.controller.conf[fieldName] = value;
                 var data = {};
-                data[fieldName] = field.value;
+                data[fieldName] = value;
                 that.controller.fire('configChange', data);
             });
         },
