@@ -5,3 +5,4 @@ test/coverage.json
 .grunt
 .sass-cache
 styles/css
+./**/.DS_Store
