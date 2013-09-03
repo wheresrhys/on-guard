@@ -51,11 +51,12 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             // }
             this.direction = (this.conf.preservePosition ? this.direction : startPos.direction);
             this.direction = typeof this.direction === 'undefined' ? 0 : this.direction;
-            
+            this.longDirection = compass[this.direction];
             //this.direction = startPos.direction || 0;
             this.stepCount = this.conf.stepCount;
             this.conf.minTime = Math.max(this.conf.minTime, 0.5);
             this.conf.maxTime = Math.max(this.conf.maxTime, this.conf.minTime);
+            this.fire('initialised');
             if (this.conf.autoplay && !dontStart) {
                 this.start();
             }
@@ -169,6 +170,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 coords,
                 currentStep,
                 direction,
+                longDirection, 
                 frontFoot;
 
             currentStep = this.conf.steps[step];
@@ -180,7 +182,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 // }
             }
             direction = (this.direction + ((this.frontFoot === L ? 1 : -1) * currentStep.direction) + 4) % 4;
-    
+            longDirection = compass[direction];
             leftToRight = currentStep.move[1] * (this.frontFoot === L ? 1: -1);
             frontToBack = currentStep.move[0];
 
@@ -214,6 +216,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 this.coords = coords;
                 this.currentStep = currentStep;
                 this.direction = direction;
+                this.longDirection = longDirection;
                 this.frontFoot = frontFoot;
                 this.announceStep(step);    
             }

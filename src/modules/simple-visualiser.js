@@ -16,13 +16,10 @@ define(['utils', 'domReady!'], function (utils) {
 
     Visualiser.prototype = {
         init: function () {
-            this.driller.on('started', function () {
-                if(this.conf.areaWidth > 0 && this.conf.areaLength > 0) {
-                    this.undrawGrid();
-                    this.drawCaption();
-                    this.drawGrid();
-                    this.setPosition(this.driller.coords, this.driller.direction, 'center');
-                }
+
+         
+            this.driller.on('initialised', function () {
+                this.prime();
             }, this);
             // this.driller.on('stopped', this.undrawGrid, this);
             this.driller.on('step', function (state) {
@@ -31,6 +28,18 @@ define(['utils', 'domReady!'], function (utils) {
                     this.updateCaption(utils.camelToSpaced(state.lastStep));
                 }
             }, this);
+
+            this.prime();
+
+
+        },
+        prime: function () {
+            if(this.conf.areaWidth > 0 && this.conf.areaLength > 0) {
+                this.undrawGrid();
+                this.drawCaption();
+                this.drawGrid();
+                this.setPosition(this.driller.coords, this.driller.longDirection, 'center');
+            }
         },
         drawCaption: function () {
             this.caption = document.createElement('h2');

@@ -22,7 +22,8 @@ describe('modules/control-panel', function () {
             field2,
             button1,
             button2,
-            initiallyTrue;
+            initiallyTrue,
+            initiallyFalse;
 
         beforeEach(function () {
             form = document.createElement('form');
