@@ -18,12 +18,13 @@ define(['utils', 'domReady!'], function (utils) {
         init: function () {
             this.driller.on('started', function () {
                 if(this.conf.areaWidth > 0 && this.conf.areaLength > 0) {
+                    this.undrawGrid();
                     this.drawCaption();
                     this.drawGrid();
                     this.setPosition(this.driller.coords, this.driller.direction, 'center');
                 }
             }, this);
-            this.driller.on('stopped', this.undrawGrid, this);
+            // this.driller.on('stopped', this.undrawGrid, this);
             this.driller.on('step', function (state) {
                 if(this.conf.areaWidth > 0 && this.conf.areaLength > 0) {
                     this.setPosition(state.coords, state.direction, state.frontFoot);
@@ -63,7 +64,6 @@ define(['utils', 'domReady!'], function (utils) {
         },
         undrawGrid: function () {
             this.domNode.innerHTML = '';
-            // this.driller.off(undefined, undefined, this);
         },
         setPosition: function(coords, direction, frontFoot) {
             

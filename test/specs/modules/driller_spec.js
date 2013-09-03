@@ -258,6 +258,19 @@ describe('modules/driller', function () {
                 });
             });
 
+            it('should allow start position to be preserved when restarting', function () {
+                timeoutSpy();
+                driller = new Driller({
+                    stepCount: 0,
+                    preservePosition: true
+                });
+                driller.coords = [2,3];
+                driller.direction = 2;
+                driller.resetAndStart();
+                expect(driller.coords).toEqual([2,3]);
+                expect(driller.direction).toEqual(2);
+            });
+
             it('should fire the start event', function () {
                 timeoutSpy();
                 var started = false;

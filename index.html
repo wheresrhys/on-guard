@@ -8,7 +8,7 @@
     <h1>On guard</h1>
     <p>Change the settings below to change how your driller will call</p>
     <form id="onGuardControlPanel" style="float:left;width:33%;">
-        <fieldset id="stepSelector">
+        <fieldset id="disabledSteps">
         </fieldset>
         <fieldset>
             <label for="minTime">Minimum time between calls</label>
@@ -20,7 +20,11 @@
             <label for="areaLength">Area width (measured in Tai Chi steps. Set to -1 for no limit)</label>
             <input type="number" id="areaLength" min="-1" max="10" ><br>
             <label for="stepCount">Maximum number of steps (Set to -1 for no limit)</label>
-            <input type="number" id="stepCount" min="-1">
+            <input type="number" id="stepCount" min="-1"><br>
+            <label for="stepCount">Delay before starting</label>
+            <input type="number" id="delay" min="0" max="30">
+            <label for="stepCount">Preserve position on stop</label>
+            <input type="checkbox" id="preservePosition">
         </fieldset>
         <fieldset>
             <input type="button" id="resetAndStart" value="Start">
@@ -45,8 +49,10 @@
                 <br> odd shaped areas
                 <br> add 'all' to event emitter
                 <br> design and skinning
-                <br> option to delay start (default to 2s)
                 <br> sort out how driller gets its config changed, how persistent etc
+                <br> get driller coverage to 100%
+                <br> write tests for tai chi config
+                <br> preserve position on stop option
             </p>
 </body>
 </html>

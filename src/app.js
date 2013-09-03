@@ -14,18 +14,19 @@ define([
             
             var driller = new Driller({
                 discipline: 'taiChi',
-                disabledSteps: ['inside', 'outside']
+                disabledSteps: ['inside', 'outside'],
+                delay: 2
             });
 
             if (window.location.hash !== '#silent') {
                 var caller = new Caller(driller);
             }
             var controlPanel = new ControlPanel(driller, {
-                fieldList: ['minTime','maxTime','areaWidth','areaLength','stepCount'],
-                actionList: ['start', 'stop'],
+                fieldList: ['minTime','maxTime','areaWidth','areaLength','stepCount', 'delay', 'preservePosition'],
+                actionList: ['resetAndStart', 'stop'],
                 formId: 'onGuardControlPanel'
             });
-            var stepSelector = new StepSelector(driller, 'stepSelector');
+            var stepSelector = new StepSelector(driller, 'disabledSteps');
             var visualiser = new Visualiser(driller, 'visualiser');
         }
     };

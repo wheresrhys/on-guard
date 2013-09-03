@@ -17,7 +17,6 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
     Driller.defaults = {
         discipline: 'taiChi',
         disabledSteps: [],
-        delay: 0,
         minTime: 1,
         maxTime: 2,
         // avgTime: 3,
@@ -45,9 +44,15 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             this.conf.disabledSteps.map(function (item) {
                 that.disabledSteps[item] = true;
             });
-            this.coords = startPos.coords || [0,0];
+            this.coords = (this.conf.preservePosition ? this.coords : startPos.coords) || [0,0];
             this.frontFoot = startPos.frontFoot || null;
-            this.direction = startPos.direction || 0;
+            // if ('direction' in this) {
+
+            // }
+            this.direction = (this.conf.preservePosition ? this.direction : startPos.direction);
+            this.direction = typeof this.direction === 'undefined' ? 0 : this.direction;
+            
+            //this.direction = startPos.direction || 0;
             this.stepCount = this.conf.stepCount;
             this.conf.minTime = Math.max(this.conf.minTime, 0.5);
             this.conf.maxTime = Math.max(this.conf.maxTime, this.conf.minTime);
