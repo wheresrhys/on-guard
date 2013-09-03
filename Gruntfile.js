@@ -177,6 +177,10 @@ module.exports = function(grunt) {
     grunt.registerTask('miscDistTasks', function () {
         // copy require js to dist folder
         grunt.file.copy('./lib/requirejs/require.js', './dist/lib/requirejs/require.js');
+        // copy assets
+        grunt.file.recurse('./assets', function (path) {
+            grunt.file.copy(path, './dist/' + path);
+        });
     });
     // add to teh build process something that creates a spec file for modules not having one built already and then halts the build
     
