@@ -10,28 +10,6 @@ module.exports = function(grunt) {
             files: ['dist']
         },
 
-        concat: {
-            // options: {
-            //   separator: ';',
-            //   banner: '<%= banner %>',
-            //   stripBanners: true
-            // },
-            dist: {
-                src: ['src/<%= pkg.name %>.js'],
-                dest: 'dist/jquery.<%= pkg.name %>.js'
-            }
-        },
-
-        uglify: {
-            options: {
-                banner: '<%= banner %>'
-            },
-            dist: {
-                src: '<%= concat.dist.dest %>',
-                dest: 'dist/jquery.<%= pkg.name %>.min.js'
-            }
-        },
-
         jshint: {
             options: grunt.file.readJSON('./.jshintrc'),
             lenient: ['Gruntfile.js', 'src/**/*.js', 'test/specs/**/*.js'],
@@ -124,7 +102,7 @@ module.exports = function(grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    './styles/css/main.css': './styles/sass/main.scss'
+                    './dist/styles/css/main.css': './styles/sass/main.scss'
                 }
             },
             dev: {
@@ -135,30 +113,41 @@ module.exports = function(grunt) {
                     './styles/css/main.css': './styles/sass/main.scss'
                 }
             }
-        }
-        //     watch: {
-        //   gruntfile: {
-        //     files: '<%= jshint.gruntfile.src %>',
-        //     tasks: ['jshint:gruntfile']
-        //   },
-        //   src: {
-        //     files: '<%= jshint.src.src %>',
-        //     tasks: ['jshint:src', 'qunit']
-        //   },
-        //   test: {
-        //     files: '<%= jshint.test.src %>',
-        //     tasks: ['jshint:test', 'qunit']
-        //   },
-        // },
+        },
+        requirejs: {
+            dist: {
+                options: {
+                    baseUrl: './src',
+                    name: 'main',
+                    mainConfigFile: './src/main.js',
+                    out: './dist/src/main.js'
+                }
+            }
+        },
+        htmlmin: {
+            
+            dist: {
+                options: {                                 // Target options
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                files: {
+                    './dist/index.html': './index.html'
+                }
+            }
+        },
     });
 
 
     // These plugins provide necessary tasks.
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-requirejs');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+
+
     
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -167,6 +156,8 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('test', ['jshint:lenient', 'jasmine:run', 'cleanRunner']);
     grunt.registerTask('lint', ['jshint:strict']);
+    grunt.registerTask('build', ['test', 'clean', 'sass:dist', 'requirejs:dist', 'htmlmin:dist', 'miscDistTasks']);
+
     grunt.registerTask('cleanRunner', function () {
         var done = this.async();
         var fs = require('fs');
@@ -181,13 +172,13 @@ module.exports = function(grunt) {
                 done();
             });
         });
-
-        
     });
 
+    grunt.registerTask('miscDistTasks', function () {
+        // copy require js to dist folder
+        grunt.file.copy('./lib/requirejs/require.js', './dist/lib/requirejs/require.js');
+    });
     // add to teh build process something that creates a spec file for modules not having one built already and then halts the build
     
-    grunt.registerTask('build', ['clean', 'concat', 'uglify']);
-    grunt.registerTask('default', ['test', 'build']);
 
 };

@@ -43,10 +43,11 @@ define(['utils', 'domReady!'], function (utils) {
         },
         drawCaption: function () {
             this.caption = document.createElement('h2');
+            this.caption.innerHTML = '&nbsp;';
             this.domNode.appendChild(this.caption);
         },
         updateCaption: function (text) {
-            this.caption.innerHTML = text;
+            this.caption.innerHTML = text.charAt(0).toUpperCase() + text.substr(1);
         },
         drawGrid: function () {
             var table = document.createElement('table'),

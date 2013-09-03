@@ -31,11 +31,19 @@ html, body {
 h1, h2, h3 {
     font-family: 'MedievalSharp', cursive;
 }
+
 h1 {
     @include gradient();
-    text-shadow: 1px 1px 0 white;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
     margin: 0;
     padding: 10px; 
+}
+
+h1 em {
+    font-weight: bold;
+    font-style: normal;
+    color: #aa0000;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
 }
 
 h2, h3 {
@@ -113,7 +121,7 @@ fieldset.checkboxes input {
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-    padding: 20px;
+    padding: 10px;
 }
 .floorspace {
     @include gradient();
@@ -126,6 +134,7 @@ fieldset.checkboxes input {
     width: 30px;
     height: 30px;
     color: white;
+    padding: 3px;
 }
 .floorspace .current {
     background: rgba(0,0,0,0.5);
