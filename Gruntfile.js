@@ -136,6 +136,12 @@ module.exports = function(grunt) {
                 }
             }
         },
+        uglify: {
+            dist: {
+                src: './lib/requirejs/require.js',
+                dest: './dist/lib/requirejs/require.js'
+            }
+        },
     });
 
 
@@ -144,6 +150,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
@@ -156,11 +163,11 @@ module.exports = function(grunt) {
     // Default task.
     grunt.registerTask('test', ['jshint:lenient', 'jasmine:run', 'cleanRunner']);
     grunt.registerTask('lint', ['jshint:strict']);
-    grunt.registerTask('build', ['test', 'clean', 'sass:dist', 'requirejs:dist', 'htmlmin:dist', 'miscDistTasks']);
+    grunt.registerTask('build', ['test', 'clean', 'sass:dist', 'requirejs:dist', 'htmlmin:dist', 'uglify:dist', 'miscBuildTasks']);
 
     grunt.registerTask('cleanRunner', function () {
-        var done = this.async();
-        var fs = require('fs');
+        var fs = require('fs'),
+            done = this.async();
         fs.readFile('specRunner.html', 'utf8', function (err, data) {
             if (err) {
                 throw err;
@@ -174,12 +181,12 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask('miscDistTasks', function () {
-        // copy require js to dist folder
-        grunt.file.copy('./lib/requirejs/require.js', './dist/lib/requirejs/require.js');
+    grunt.registerTask('miscBuildTasks', function () {
         // copy assets
         grunt.file.recurse('./assets', function (path) {
-            grunt.file.copy(path, './dist/' + path);
+            if (path.indexOf('DS_Store') === -1) {
+                grunt.file.copy(path, './dist/' + path);
+            }
         });
     });
     // add to teh build process something that creates a spec file for modules not having one built already and then halts the build

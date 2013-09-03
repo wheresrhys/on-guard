@@ -74,6 +74,8 @@ fieldset p {
 fieldset label {
     float: left;
     width: 75%;
+    box-sizing: border-box;
+    padding-right: 10px;
 }
 
 fieldset hr {
