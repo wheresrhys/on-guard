@@ -35,24 +35,8 @@ define(['utils', 'domReady!'], function (utils) {
                 var stepIndex;
                 if (input.checked) {
                     that.driller.enableStep(step); 
-                    stepIndex = that.driller.conf.disabledSteps.indexOf(step);
-
-                    if (stepIndex > -1) {
-                        that.driller.conf.disabledSteps.splice(stepIndex, 1);
-                        // or could just fire 'stepDisabled'
-                        that.driller.fire('configChange', {
-                            disabledSteps: that.driller.conf.disabledSteps
-                        });  
-                    } else {
-                        that.driller.fire('configChange', {});    
-                    }
-                    
                 } else {
                     that.driller.disableStep(step);
-                    that.driller.conf.disabledSteps.push(step);
-                    that.driller.fire('configChange', {
-                        disabledSteps: that.driller.conf.disabledSteps
-                    }); 
                 }
             });
         }

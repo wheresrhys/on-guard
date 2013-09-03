@@ -17,6 +17,7 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
     Driller.defaults = {
         discipline: 'taiChi',
         disabledSteps: [],
+        delay: 0,
         minTime: 1,
         maxTime: 2,
         // avgTime: 3,
@@ -41,11 +42,9 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             var startPos = this.conf.startPosition || {},
                 that = this;
             this.disabledSteps = {};
-            if (this.conf.disabledSteps) {
-                this.conf.disabledSteps.map(function (item) {
-                    that.disabledSteps[item] = true;
-                });
-            }
+            this.conf.disabledSteps.map(function (item) {
+                that.disabledSteps[item] = true;
+            });
             this.coords = startPos.coords || [0,0];
             this.frontFoot = startPos.frontFoot || null;
             this.direction = startPos.direction || 0;
@@ -56,17 +55,32 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
                 this.start();
             }
         },
-        start: function (reset) {
-            if (reset) {
-                this.init(true);
-            } else if (this.running === true) {
-                return;
-            }
+        _start: function (reset) {
+            
             this.fire('started');
             this.running = true;
             this.startSequence = this.conf.startSequence.slice();
             this.announceStep(this.startSequence.shift());
             this.takeStep();
+        },
+        start: function (reset) {
+            var that = this;
+            if (reset) {
+                this.init(true);
+            } else if (this.running === true) {
+                return;
+            }
+            if (this.conf.delay) {
+                setTimeout(function () {
+                    that._start(reset);
+                }, this.conf.delay * 1000);
+            } else {
+                this._start(reset);
+            }
+        },
+        resetAndStart: function () {
+            this.stop(true);
+            this.start(true);
         },
         announceStep: function (step) {
             if (!this.conf.steps[step]) {
@@ -165,13 +179,10 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             leftToRight = currentStep.move[1] * (this.frontFoot === L ? 1: -1);
             frontToBack = currentStep.move[0];
 
-            if ('frontFoot' in currentStep) {
-
-                frontFoot =    currentStep.frontFoot === L ? L :
-                                currentStep.frontFoot === R ? R :
-                                currentStep.frontFoot === 0 ? this.frontFoot :
-                                this.frontFoot === R ? L : R;
-            }
+            frontFoot =    currentStep.frontFoot === L ? L :
+                            currentStep.frontFoot === R ? R :
+                            currentStep.frontFoot === 1 ? (this.frontFoot === R ? L : R) :
+                            this.frontFoot;
             
             switch (direction) {
             
@@ -217,10 +228,26 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
 
         },
         enableStep: function (step) {
+            
+            var stepIndex = this.conf.disabledSteps.indexOf(step);
             this.disabledSteps[step] = false;
+            if (stepIndex > -1) {
+                this.conf.disabledSteps.splice(stepIndex, 1);
+                // or could just fire 'stepDisabled'
+                this.fire('configChange', {
+                    disabledSteps: this.conf.disabledSteps
+                });  
+            }
         },
         disableStep: function (step) {
+            var stepIndex = this.conf.disabledSteps.indexOf(step);
             this.disabledSteps[step] = true;
+            if (stepIndex === -1) {
+                this.conf.disabledSteps.push(step);
+                this.fire('configChange', {
+                    disabledSteps: this.conf.disabledSteps
+                });
+            }
         },
 
 

@@ -1,4 +1,4 @@
-/*global describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
+/*global waitsFor:false,describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('modules/driller', function () {
     
     var Driller = require('modules/driller'),
@@ -193,16 +193,21 @@ describe('modules/driller', function () {
                 driller = new Driller({
                     stepCount: 0
                 });
-                spyOn(window, 'setTimeout').andCallFake(function (callback, delay) {
-                    callback();
-                });
+                
             });
 
             afterEach(function () {
                 driller.stop();
             });
+
+            var timeoutSpy = function () {
+                spyOn(window, 'setTimeout').andCallFake(function (callback, delay) {
+                    callback();
+                });
+            };
             
             it('should allow resetting to initial position', function () {
+                timeoutSpy();
                 spyOn(driller, 'init').andCallThrough();
                 driller.direction = 'test';
                 driller.conf.startSequence = ['noChange'];
@@ -211,7 +216,50 @@ describe('modules/driller', function () {
                 expect(driller.direction).toBe(0);
             });
 
+            it('should allow restarting while running', function () {
+                timeoutSpy();
+                driller = new Driller({
+                    stepCount: 0
+                });
+                driller.start();
+                spyOn(driller, 'init').andCallThrough();
+                spyOn(driller, 'takeStep').andCallThrough();
+                spyOn(driller, 'start').andCallThrough();
+                
+                driller.resetAndStart();
+                
+                expect(driller.takeStep.calls[0].args[0]).toBeFalsy();
+                expect(driller.start).toHaveBeenCalled();
+                expect(driller.init).toHaveBeenCalled();
+
+            });
+
+            it('should allow a delay for starting to be specified', function () {
+                var started;
+                runs(function () {
+                    driller = new Driller({
+                        stepCount: 0,
+                        minTime: 1,
+                        maxTime: 1,
+                        delay: 0.1
+                    });
+                    spyOn(driller, '_start').andCallThrough();
+                    setTimeout(function () {
+                        started = true;
+                    }, 101);
+                    driller.start();
+                    expect(driller._start).not.toHaveBeenCalled();
+                });
+                waitsFor(function () {
+                    return started;
+                });
+                runs(function () {
+                    expect(driller._start).toHaveBeenCalled();
+                });
+            });
+
             it('should fire the start event', function () {
+                timeoutSpy();
                 var started = false;
                 driller.on('started', function () {
                     started = true;
@@ -221,6 +269,7 @@ describe('modules/driller', function () {
             });
 
             it('should leave the start sequence in conf unchanged', function () {
+                timeoutSpy();
                 driller.start();
                 expect(driller.conf.startSequence).toEqual(['step']);
             });
@@ -237,11 +286,13 @@ describe('modules/driller', function () {
                 });
 
                 it('should perform the starting sequence', function () {
+                    timeoutSpy();
                     driller.start();
                     expect(steps).toEqual(['noChange', 'step', 'specialStep1']);
                 });
 
                 it('should continue with more steps after starting sequence completed', function () {
+                    timeoutSpy();
                     driller.stepCount = 2;
                     driller.start();
                     expect(steps.length).toBe(5);
@@ -253,6 +304,7 @@ describe('modules/driller', function () {
                     spyOn(driller, 'announceStep').andCallThrough();
                 });
                 it('shouldn\'t allow invalid first step name', function () {
+                    timeoutSpy();
                     driller.conf.startSequence = ['notAStep'];
                     expect(function () {
                         driller.start();
@@ -260,6 +312,7 @@ describe('modules/driller', function () {
                 });
 
                 it('shouldn\'t allow invalid subsequent step names', function () {
+                    timeoutSpy();
                     driller.conf.startSequence = ['noChange', 'notAStep'];
                     expect(function () {
                         driller.start();
