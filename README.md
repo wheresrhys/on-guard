@@ -1,41 +1,10 @@
-# jquery.defer / jquery.undefer
+# On guard
 
-A pair of utility methods for forcing a function or an object's methods to wait for a deferred object to resolve before running and undoing this effect if required.
+This app calls out tai chi martial commands to help improve your coordination.
+ 
+The app takes account of the space you have to move around. To avoid walking into a wall start one tai chi step forward from the left corner of the room
+Change the settings below to customise how the commands will be called.
 
-## Getting Started
-Download the [production version][min] or the [development version][max].
+[Use the app][url]
 
-[min]: https://raw.github.com/wheresrhys/jquery.defer/master/dist/jquery.defer.min.js
-[max]: https://raw.github.com/wheresrhys/jquery.defer/master/dist/jquery.defer.js
-
-In your web page:
-
-```
-html
-<script src="jquery.js"></script>
-<script src="dist/defer.min.js"></script>
-<script>
-jQuery(function($) {
-  $.defer(object, deferredObject, options);
-  $.undefer(object, options);
-});
-</script>
-```
-
-## Documentation
-See the [source code][src] for documentation
-
-[src]: https://github.com/wheresrhys/jquery.defer/blob/master/src/defer.js
-
-## Examples
-To implement the [lazy loaded google maps][inspiredby] that inspired this plugin the individually rewritten methods can be replaced by (using the same object and function names as in the original article)
-
-```
-$.defer(GoogleMaps.prototype, _mapsLoaded, {exclude: 'init'});
-```
-
-[inspiredby]: http://blog.pixelingene.com/2011/10/using-jquery-dot-deferred-and-requirejs-to-lazy-load-google-maps-api/
-
-## Release History
-
--  v0.1.0 First iteration of plugin, carrying out basic defer and undefer actions
+[url]: https://raw.github.com/wheresrhys/jquery.defer/master/dist/jquery.defer.min.js
