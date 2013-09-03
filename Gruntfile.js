@@ -113,11 +113,29 @@ module.exports = function(grunt) {
                     }
                 }
             }
+        },
+        watch: {
+            files: ['styles/sass/**/*.scss'],
+            tasks: 'sass:dev'
+        },
+        sass: {
+            dist: {
+                options: {
+                    style: 'compressed'
+                },
+                files: {
+                    './styles/css/main.css': './styles/sass/main.scss'
+                }
+            },
+            dev: {
+                options: {
+                    style: 'expanded'
+                },
+                files: {
+                    './styles/css/main.css': './styles/sass/main.scss'
+                }
+            }
         }
-        // watch: {
-        //   files: '<config:lint.files>',
-        //   tasks: 'lint qunit'
-        // }
         //     watch: {
         //   gruntfile: {
         //     files: '<%= jshint.gruntfile.src %>',
@@ -142,7 +160,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     
-    //grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-connect');
     
     // Default task.

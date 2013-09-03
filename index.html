@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>tai chi workout</title>
+    <title>On guard tai chi martial workout</title>
+    <link rel="stylesheet" href="styles/css/main.css" type="text/css" />
+    <link href="http://fonts.googleapis.com/css?family=MedievalSharp" rel="stylesheet" type="text/css">
 </head>
 <body>
 <script data-main="src/main" src="lib/requirejs/require.js"></script>
-    <h1>On guard</h1>
-    <p>Change the settings below to change how your driller will call.<br>
-        To avoid walking into a wall you'll need to start one step forward from the bottom left corner of the room</p>
-    <form id="onGuardControlPanel" style="float:left;width:33%;">
-        <fieldset id="disabledSteps">
+    <h1>On guard tai chi martial workout</h1>
+    <p>This app calls out tai chi martial commands to help improve your coordination.</p>
+    <p>The app takes account of the space you have to move around. To avoid walking into a wall start one tai chi step forward from the left corner of the room</p>
+    <p>Change the settings below to customise how the commands will be called.</p>
+
+    <form id="onGuardControlPanel" class="form">
+        <fieldset id="disabledSteps" class="checkboxes">
         </fieldset>
         <fieldset>
             <label for="minTime">Minimum time between calls</label>
-            <input type="number" id="minTime" min="0.5" max="5"><br>
+            <input type="number" id="minTime" min="0.5" max="5">
+            <hr>
             <label for="maxTime">Maximum time between calls</label>
-            <input type="number" id="maxTime" min="1" max="20" ><br>
+            <input type="number" id="maxTime" min="1" max="20" >
+            <hr>
             <label for="areaWidth">Area width (measured in Tai Chi steps. Set to -1 for no limit)</label>
-            <input type="number" id="areaWidth" min="-1" max="10" ><br>
+            <input type="number" id="areaWidth" min="-1" max="10" >
+            <hr>
             <label for="areaLength">Area width (measured in Tai Chi steps. Set to -1 for no limit)</label>
-            <input type="number" id="areaLength" min="-1" max="10" ><br>
+            <input type="number" id="areaLength" min="-1" max="10" >
+            <hr>
             <label for="stepCount">Maximum number of steps (Set to -1 for no limit)</label>
-            <input type="number" id="stepCount" min="-1"><br>
+            <input type="number" id="stepCount" min="-1">
+            <hr>
             <label for="stepCount">Delay before starting</label>
             <input type="number" id="delay" min="0" max="30">
+            <hr>
             <label for="stepCount">Preserve position on stop</label>
             <input type="checkbox" id="preservePosition">
         </fieldset>
@@ -33,30 +43,10 @@
         </fieldset>
         
     </form>
-    <div id="visualiser" style="float:left;width:33%;">
+    <div class="visualiser-wrapper">
+        <div id="visualiser" >
 
+        </div>
     </div>
-        <div style="float:left;width:33%;">
-            <h2>To do list</h2>
-            <p>
-                <br>// bursts (repeat and random, and inbetween)
-                <br>// gradual speed up
-                <br>// use the accelerometer to measure success
-                <br>// publish the event emitter
-                <br>// easily enable and disable steps (and change frequency)
-                <br>write tests for setting conf on the fly
-                <br>weight more heavily towards step and back
-                <br>infinite visualisation
-                <br> odd shaped areas
-                <br> add 'all' to event emitter
-                <br> design and skinning
-                <br> sort out how driller gets its config changed, how persistent etc
-                <br> get driller coverage to 100%
-                <br> write tests for tai chi config
-                <br> preserve position on stop option
-                <br> automate control panel creation
-                <br> build
-                <br> If not supported show message explining which browers are
-            </p>
 </body>
 </html>

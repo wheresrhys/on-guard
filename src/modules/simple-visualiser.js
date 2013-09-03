@@ -69,7 +69,7 @@ define(['utils', 'domReady!'], function (utils) {
             }
             this.domNode.appendChild(table);
             this.grid = table;
-            table.style.backgroundColor = 'yellow';
+            table.className = 'floorspace';
         },
         undrawGrid: function () {
             this.domNode.innerHTML = '';
@@ -82,40 +82,16 @@ define(['utils', 'domReady!'], function (utils) {
             var cell = this.grid.getElementsByTagName('tr')[(this.conf.areaLength - 1) - coords[0]]
                     .getElementsByTagName('td')[coords[1]];
 
-            cell.style.backgroundColor = 'red';
+            cell.className = 'current ' + direction.toLowerCase() + ' ' + (frontFoot && frontFoot.toLowerCase());
             this.position = coords;
-            cell.innerHTML = '&#' + arrowCodes[direction] + ';';
-            this.alignArrow(cell, frontFoot, direction);
+            // up arrow
+            cell.innerHTML = '&#8593;';
         },
         unshowPosition: function () {
             var cell = this.grid.getElementsByTagName('tr')[(this.conf.areaLength - 1) - this.position[0]]
                     .getElementsByTagName('td')[this.position[1]];
-            cell.style.backgroundColor = '';
+            cell.className = '';
             cell.innerHTML = defaultCellHtml;
-            cell.style.textAlign = 'center';
-        },
-        alignArrow: function (cell, frontFoot, direction) {
-            switch (direction) {
-            case 'North' :
-                cell.style.textAlign = frontFoot;
-                cell.style.verticalAlign = '';
-                cell.style.position = 'static';
-                break;
-            case 'South':
-                cell.style.textAlign = frontFoot === 'Left' ? 'Right' : 'Left';
-                cell.style.verticalAlign = '';
-                cell.style.position = 'static';
-                break;
-            case 'East':
-                cell.style.textAlign = '';
-                cell.style.verticalAlign = frontFoot === 'Left' ? 'super' : 'sub';
-                break;
-            case 'West':
-                cell.style.textAlign = '';
-                cell.style.verticalAlign = frontFoot === 'Right' ? 'super' : 'sub';
-                break;
-            }
-                
             
         }
     };
