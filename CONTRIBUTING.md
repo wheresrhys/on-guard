@@ -12,26 +12,26 @@ While grunt can run the included unit tests via [PhantomJS](http://phantomjs.org
 See the [Why does grunt complain that PhantomJS isn't installed?](https://github.com/gruntjs/grunt/blob/master/docs/faq.md#why-does-grunt-complain-that-phantomjs-isnt-installed) guide in the [Grunt FAQ](https://github.com/gruntjs/grunt/blob/master/docs/faq.md) for help with installing or troubleshooting PhantomJS.
 
 ## Modifying the code
-First, ensure that you have the latest [Node.js](http://nodejs.org/) and [npm](http://npmjs.org/) installed.
+First, ensure that you have the latest [Node.js](http://nodejs.org/), [npm](http://npmjs.org/) and [bower](https://github.com/bower/bower) installed. 
 
 Test that grunt is installed globally by running `grunt --version` at the command-line.  If grunt isn't installed globally, run `npm install -g grunt` to install the latest version. _You may need to run `sudo npm install -g grunt`._
 
 _Note that in Windows, you may have to run `grunt.cmd` instead of `grunt`._
 
 1. Fork and clone the repo.
-1. Run `npm install` to install all dependencies (including grunt).
-1. Run `grunt` to grunt this project.
+1. Run `npm install` to install all dev dependencies (including grunt).
+1. Run `bower install` to install all dependencies
+1. Run `grunt build` to grunt this project.
 
-Assuming that you don't see any red, you're ready to go. Just be sure to run `grunt` after making any changes, to ensure that nothing is broken.
-
-Grunt tests the plugin against all versions of jQuery it claims to support. If they're not available locally it will include them using http://code.jquery.com. To speed up Grunt's running of tests it's a good idea to include copies of the required jQuery versions in `/libs/jquery` (or symlink to a directory where you already have a copies).
+Assuming that you don't see any red, you're ready to go. Just be sure to run `grunt test` after making any changes, to ensure that nothing is broken.
 
 ## Submitting pull requests
 
 1. Create a new branch, please don't work in your `master` branch directly.
 1. Add failing tests for the change you want to make. Run `grunt` to see the tests fail.
 1. Fix stuff.
-1. Run `grunt` to see if the tests pass. Repeat steps 2-4 until done.
+1. Run `grunt test` to see if the tests pass. Repeat steps 2-4 until done.
 1. Open `test/*.html` unit test file(s) in actual browser to ensure tests pass everywhere (also running with ?jquery=[version number] for each supported version of jQuery).
 1. Update the documentation to reflect any changes.
+1. Run `grunt build`
 1. Push to your fork and submit a pull request.

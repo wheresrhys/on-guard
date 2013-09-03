@@ -1,3 +1,7 @@
 {
-    "directory": "lib"
+    "directory": "lib",
+    "dependencies": {
+        "requirejs": "~2.1.8",
+        "requirejs-domready": "~2.0.1"
+    }
 }
