@@ -11,13 +11,13 @@
                 <br>infinite visualisation
                 <br> odd shaped areas
                 <br> add 'all' to event emitter
-                <br> design and skinning
                 <br> sort out how driller gets its config changed, how persistent etc
                 <br> get driller coverage to 100%
                 <br> write tests for tai chi config
-                <br> preserve position on stop option
                 <br> automate control panel creation
-                <br> build
                 <br> If not supported show message explining which browers are
                 <br> persistent config (local storage)
+                iphone
+                ads and analytics
+                double starting when delay is set shouldn't be allowed
             </p>

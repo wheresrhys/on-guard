@@ -6,3 +6,5 @@ test/coverage.json
 .sass-cache
 styles/css
 ./**/.DS_Store
+onguard.sublime-project
+onguard.sublime-workspace
