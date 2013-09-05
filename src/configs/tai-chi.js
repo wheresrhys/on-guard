@@ -33,7 +33,7 @@ define({
         },
         turn: {
             frontFoot: 0,
-            move: [0, 1],
+            move: [0, -1],
             direction: 1
         },
         onGuard: {
@@ -49,7 +49,7 @@ define({
             _propertyDefinition: true,
             enumerable: false,
             value: {
-                frontFoot: false,
+                frontFoot: null,
                 move: [0, 0],
                 direction: 0
             }

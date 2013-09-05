@@ -183,15 +183,16 @@ define(['mixins/event-emitter', 'utils'], function (eventEmitter, utils) {
             }
             direction = (this.direction + ((this.frontFoot === L ? 1 : -1) * currentStep.direction) + 4) % 4;
             longDirection = compass[direction];
-            leftToRight = currentStep.move[1] * (this.frontFoot === L ? 1: -1);
+            leftToRight = currentStep.move[1] * (this.frontFoot !== R ? 1: -1);
             frontToBack = currentStep.move[0];
 
             frontFoot =    currentStep.frontFoot === L ? L :
                             currentStep.frontFoot === R ? R :
+                            currentStep.frontFoot === null ? null :
                             currentStep.frontFoot === 1 ? (this.frontFoot === R ? L : R) :
                             this.frontFoot;
             
-            switch (direction) {
+            switch (this.direction) {
             
             case 0:
                 moveMatrix = [frontToBack, leftToRight];
