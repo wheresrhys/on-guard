@@ -27,9 +27,14 @@ define({
             direction: 0
         },
         outside: {
-            frontFoot: 0,
+            frontFoot: 1,
             move: [0, -1],
             direction: 0
+        },
+        turn: {
+            frontFoot: 0,
+            move: [0, 1],
+            direction: 1
         },
         onGuard: {
             _propertyDefinition: true,
