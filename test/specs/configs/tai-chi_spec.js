@@ -3,6 +3,14 @@ describe('configs/tai-chi', function () {
     var Driller = require('modules/driller'),
         taiChiConfig = require('configs/tai-chi'),
         driller;
+    function checkEnumerable(prop, obj) {
+        for (var key in obj) {
+            if (key === prop) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     beforeEach(function () {
         Driller.addDiscipline(taiChiConfig);
@@ -18,6 +26,7 @@ describe('configs/tai-chi', function () {
 
 
     it('should correctly define a step move', function () {
+        expect(checkEnumerable('step', driller.conf.steps)).toBeTruthy();
         driller.adjustPosition('step');
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'North',
@@ -28,6 +37,7 @@ describe('configs/tai-chi', function () {
     });
 
     it('should correctly define a back move', function () {
+        expect(checkEnumerable('back', driller.conf.steps)).toBeTruthy();
         driller.adjustPosition('back');
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'North',
@@ -38,6 +48,7 @@ describe('configs/tai-chi', function () {
     });
 
     it('should correctly define a shift move', function () {
+        expect(checkEnumerable('shift', driller.conf.steps)).toBeTruthy();
         driller.adjustPosition('shift');
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'East',
@@ -48,6 +59,7 @@ describe('configs/tai-chi', function () {
     });
 
     it('should correctly define a switch move', function () {
+        expect(checkEnumerable('switch', driller.conf.steps)).toBeTruthy();
         driller.adjustPosition('switch');
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'North',
@@ -68,6 +80,7 @@ describe('configs/tai-chi', function () {
     });
 
     it('should correctly define a outside move', function () {
+        expect(checkEnumerable('outside', driller.conf.steps)).toBeTruthy();
         driller.adjustPosition('outside');
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'North',
@@ -78,6 +91,7 @@ describe('configs/tai-chi', function () {
     });
 
     it('should correctly define a turn move', function () {
+        expect(checkEnumerable('turn', driller.conf.steps)).toBeTruthy();
         driller.adjustPosition('turn');
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'East',
@@ -88,6 +102,7 @@ describe('configs/tai-chi', function () {
     });
 
     it('should correctly define a onGuard move', function () {
+        expect(checkEnumerable('onGuard', driller.conf.steps)).toBeFalsy();
         driller.adjustPosition('onGuard');
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'North',
@@ -98,7 +113,9 @@ describe('configs/tai-chi', function () {
     });
 
     it('should correctly define a wuChi move', function () {
+        expect(checkEnumerable('wuChi', driller.conf.steps)).toBeFalsy();
         driller.adjustPosition('wuChi');
+
         expect(driller.fire).toHaveBeenCalledWith('step', {
             direction: 'North',
             frontFoot: null,
