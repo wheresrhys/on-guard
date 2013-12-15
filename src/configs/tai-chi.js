@@ -1,4 +1,6 @@
-define({
+'use strict';
+
+module.exports = {
     name: 'taiChi',
     steps: {
         step: {
@@ -57,4 +59,4 @@ define({
     },
     startSequence: ['wuChi', 'onGuard'],
     endSequence: ['wuChi']
-});
+};

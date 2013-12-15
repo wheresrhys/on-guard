@@ -1,18 +1,5 @@
-require.config({
-	paths: {
-		domReady: '../lib/requirejs-domready/domReady'
-	},
-	baseUrl: 'src',
-	shim: {
-	},
-	priority: [
-	]
-});
+'use strict';
 
-require([
-	'app',
-], function (app) {
-	'use strict';
-	app.init();
-});
+var app = require('./app');
 
+app.init();

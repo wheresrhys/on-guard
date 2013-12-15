@@ -1,139 +1,136 @@
-define(function () {
-    
-    'use strict';
+'use strict';
 
-    var eventEmitter = (function (undefined) {
+var eventEmitter = (function (undefined) {
 
-        var doOn = function (callbacks, event, callback, context) {
+    var doOn = function (callbacks, event, callback, context) {
 
-                // fetch the event's store of callbacks or create it if needed
-                var store = callbacks[event] || (callbacks[event] = []);
+            // fetch the event's store of callbacks or create it if needed
+            var store = callbacks[event] || (callbacks[event] = []);
 
-                // store the callback for later use
-                store.push({
-                    callback: callback,
-                    context: context || window || null
-                });
+            // store the callback for later use
+            store.push({
+                callback: callback,
+                context: context || window || null
+            });
 
-                // also on to the context object's destroy event in order to off
-                if (context) {
-                    if (context.on !== on) {
-                        eventEmitter.apply(context);
-                    }
-                    if (event !== 'silenceEvents') {
-                        context.on('silenceEvents', function () {
-                            off.call(this, event, callback, context);
-                        }, this);
-                            
-                    }
+            // also on to the context object's destroy event in order to off
+            if (context) {
+                if (context.on !== on) {
+                    eventEmitter.apply(context);
                 }
-            },
-            doOff = function (callbacks, event, callback, context) {
-                var store = callbacks[event],
-                    i;
-
-                if (!store) {return;}
-
-                if (!callback && !context) {
-                    store.length = [];
+                if (event !== 'silenceEvents') {
+                    context.on('silenceEvents', function () {
+                        off.call(this, event, callback, context);
+                    }, this);
+                        
                 }
+            }
+        },
+        doOff = function (callbacks, event, callback, context) {
+            var store = callbacks[event],
+                i;
 
-                // fast loop
-                for (i = store.length - 1; i>=0; i--) {
-                    if ((!callback && store[i].context === context) || (store[i].callback === callback && (!context || !(store[i].context) || store[i].context === context))) {
+            if (!store) {return;}
 
-                        // I might have got the index wrong here - shoudl it be i-1. Obviously I'd check thoroughly in a real app
-                        store.splice(i, 1);
-                    }
+            if (!callback && !context) {
+                store.length = [];
+            }
+
+            // fast loop
+            for (i = store.length - 1; i>=0; i--) {
+                if ((!callback && store[i].context === context) || (store[i].callback === callback && (!context || !(store[i].context) || store[i].context === context))) {
+
+                    // I might have got the index wrong here - shoudl it be i-1. Obviously I'd check thoroughly in a real app
+                    store.splice(i, 1);
                 }
-            },
-            doFire = function (callbacks, event, result) {
-                var store = callbacks[event],
-                    i = 0,
-                    il;
-                //console.log('Event emitted', '\nemitter: ', this, '\nevent:', event, '\ndata: ', result);
-                if (!store) {return;}
+            }
+        },
+        doFire = function (callbacks, event, result) {
+            var store = callbacks[event],
+                i = 0,
+                il;
+            //console.log('Event emitted', '\nemitter: ', this, '\nevent:', event, '\ndata: ', result);
+            if (!store) {return;}
 
-                // loop here must be in increasing order
-                for (il = store.length; i<il; i++) {
-                    store[i].callback.call(store[i].context, result, event, this);
-                }
-            },
-            on = function (event, callback, context) {
-                if (typeof event !== 'string') {
-                    throw('provide a string name for the event to subscribe to');
-                }
-                if (typeof callback !== 'function') {
-                    throw('provide a callback for the event to subscribe to');
-                }
+            // loop here must be in increasing order
+            for (il = store.length; i<il; i++) {
+                store[i].callback.call(store[i].context, result, event, this);
+            }
+        },
+        on = function (event, callback, context) {
+            if (typeof event !== 'string') {
+                throw('provide a string name for the event to subscribe to');
+            }
+            if (typeof callback !== 'function') {
+                throw('provide a callback for the event to subscribe to');
+            }
 
-                var callbacks = getCallbacks(this),
-                    events = event.split(' ');
+            var callbacks = getCallbacks(this),
+                events = event.split(' ');
 
-                for (var i = 0, il = events.length; i<il; i++) {
-                    doOn.call(this, callbacks, events[i], callback, context);
-                }
-            },
+            for (var i = 0, il = events.length; i<il; i++) {
+                doOn.call(this, callbacks, events[i], callback, context);
+            }
+        },
 
-            off = function (event, callback, context) {
-                if (typeof event !== 'string') {
-                    throw('provide a string name for the event to unsubscribe from');
-                }
-                var callbacks = getCallbacks(this, true),
-                    events = event.split(' ');
+        off = function (event, callback, context) {
+            if (typeof event !== 'string') {
+                throw('provide a string name for the event to unsubscribe from');
+            }
+            var callbacks = getCallbacks(this, true),
+                events = event.split(' ');
 
-                
-                if (!callbacks) {return false;}
-                
-                for (var i = 0, il = events.length; i<il; i++) {
-                    doOff.call(this, callbacks, events[i], callback, context);
-                }
-            },
-
-            fire = function (event, result) {
-                var callbacks = getCallbacks(this),
-                    events = event.split(' ');
-
-                for (var i = 0, il = events.length; i<il; i++) {
-                    doFire.call(this, callbacks, events[i], result);
-                }
-            },
-
-            getCallbacks = function (obj, dontSet) {
-                for (var i = 0, il = contexts.length; i < il; i++) {
-                    if (contexts[i] === obj) {
-                        return callbacks[i];
-                    }
-                }
-                if (!dontSet) {
-                    contexts.push(obj);
-                    callbacks.push([]);
-                    return callbacks[callbacks.length - 1];
-                } else {
-                    return undefined;
-                }
-            },
-
-            callbacks = [],
-            contexts = [],
             
-            mixin = function () {
+            if (!callbacks) {return false;}
+            
+            for (var i = 0, il = events.length; i<il; i++) {
+                doOff.call(this, callbacks, events[i], callback, context);
+            }
+        },
 
-                this.on = on;
-                this.off = off;
-                this.fire = fire;
+        fire = function (event, result) {
+            var callbacks = getCallbacks(this),
+                events = event.split(' ');
 
-                return this;
-            };
+            for (var i = 0, il = events.length; i<il; i++) {
+                doFire.call(this, callbacks, events[i], result);
+            }
+        },
 
-        mixin.cleanUp = function () {
-            callbacks = [];
-            contexts = [];
+        getCallbacks = function (obj, dontSet) {
+            for (var i = 0, il = contexts.length; i < il; i++) {
+                if (contexts[i] === obj) {
+                    return callbacks[i];
+                }
+            }
+            if (!dontSet) {
+                contexts.push(obj);
+                callbacks.push([]);
+                return callbacks[callbacks.length - 1];
+            } else {
+                return undefined;
+            }
+        },
+
+        callbacks = [],
+        contexts = [],
+        
+        mixin = function () {
+
+            this.on = on;
+            this.off = off;
+            this.fire = fire;
+
+            return this;
         };
 
-        return mixin;
+    mixin.cleanUp = function () {
+        callbacks = [];
+        contexts = [];
+    };
 
-    })(undefined);
+    return mixin;
 
-    return eventEmitter;
-});
+})();
+
+module.exports = eventEmitter;

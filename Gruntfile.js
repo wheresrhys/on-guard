@@ -93,8 +93,14 @@ module.exports = function(grunt) {
             }
         },
         watch: {
-            files: ['styles/sass/**/*.scss'],
-            tasks: 'sass:dev'
+            sass: {
+                files: ['styles/sass/**/*.scss'],
+                tasks: 'sass:dev'
+            },
+            js: {
+                files: ['src/**/*.js'],
+                tasks: 'browserify:dev'
+            }
         },
         sass: {
             dist: {
@@ -142,6 +148,16 @@ module.exports = function(grunt) {
                 dest: './dist/lib/requirejs/require.js'
             }
         },
+        browserify: {
+            dev: {
+                options: {
+                    debug: true
+                },
+                files: {
+                    'dist/bundle.js': ['src/main.js']
+                }
+            }
+        }
     });
 
 
@@ -156,6 +172,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-browserify');
     
     // Default task.
     grunt.registerTask('test', ['jshint:lenient', 'jasmine:run', 'cleanRunner']);
