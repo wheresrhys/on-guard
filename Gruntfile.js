@@ -2,7 +2,7 @@
 module.exports = function(grunt) {
     'use strict';
 
-    var allSrcs = ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'];
+    var allSrcs = ['./Gruntfile.js', './src/**/*.js', './test/**/*.js'];
     // Project configuration.
     grunt.initConfig({
         
@@ -26,68 +26,26 @@ module.exports = function(grunt) {
 
         jasmine: {
             run: {
-                src: ['src/**/*.js', '!src/main.js'],
+                src: ['dist/bundle.src.js'],
                 options: {
                     outfile: 'specRunner.html',
                     keepRunner: true,
-                    specs: ['test/specs/**/*.js'],
+                    specs: ['dist/bundle.test.js'],
                     helpers: ['test/helpers/**/*.js'],
                     template: require('grunt-template-jasmine-istanbul'),
                     templateOptions: {
-                        coverage: 'test/coverage.json',
+                        coverage: 'reports/coverage.json',
                         report: [
                             {
                                 type: 'html',
                                 options: {
-                                    dir: 'test/coverage'
+                                    dir: 'reports/coverage'
                                 }
                             },
                             {
                                 type: 'text-summary'
                             }
-                        ],
-                        // 1. don't replace src for the mixed-in template with instrumented sources
-                        replace: false,
-                        template: require('grunt-template-jasmine-requirejs'),
-                        templateOptions: {
-                            requireConfig: {
-                                // 2. use the baseUrl you want
-                                baseUrl: './src/',
-                                paths: {
-                                    domReady: '../lib/requirejs-domready/domReady'
-                                },
-                                // 3. pass paths of the sources being instrumented as a configuration option
-                                //    these paths should be the same as the jasmine task's src
-                                //    unfortunately, grunt.config.get() doesn't work because the config is just being evaluated
-                                config: {
-                                    instrumented: {
-                                        src: grunt.file.expand(['src/**/*.js', 'lib/requirejs-domready/domReady.js'])
-                                    }
-                                },
-                                // 4. use this callback to read the paths of the sources being instrumented and redirect requests to them appropriately
-                                callback: function () {
-                                    define('instrumented', ['module'], function (module) {
-                                        return module.config().src;
-                                    });
-                                    require(['instrumented'], function (instrumented) {
-                                        var oldLoad = requirejs.load;
-                                        requirejs.load = function (context, moduleName, url) {
-                                            // normalize paths
-                                            if (url.substring(0, 1) === '/') {
-                                                url = url.substring(1);
-                                            } else if (url.substring(0, 2) === './') {
-                                                url = url.substring(2);
-                                            }
-                                            // redirect
-                                            if (instrumented.indexOf(url) > -1) {
-                                                url = './.grunt/grunt-contrib-jasmine/' + url;
-                                            }
-                                            return oldLoad.apply(this, [context, moduleName, url]);
-                                        };
-                                    });
-                                }
-                            }
-                        }
+                        ]
                     }
                 }
             }
@@ -120,16 +78,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        requirejs: {
-            dist: {
-                options: {
-                    baseUrl: './src',
-                    name: 'main',
-                    mainConfigFile: './src/main.js',
-                    out: './dist/src/main.js'
-                }
-            }
-        },
         htmlmin: {
             
             dist: {
@@ -149,12 +97,40 @@ module.exports = function(grunt) {
             }
         },
         browserify: {
+            prod: {
+                options: {
+                    debug: false
+                },
+                files: {
+                    'dist/bundle.min.js': ['./src/main.js']
+                }
+            },
             dev: {
                 options: {
                     debug: true
                 },
                 files: {
-                    'dist/bundle.js': ['src/main.js']
+                    'dist/bundle.js': ['./src/main.js']
+                }
+            },
+            src: {
+                files: {
+                    'dist/bundle.src.js': ['./src/**/*.js']
+                },
+                options: {
+                    debug: true,
+                    aliasMappings: {
+                        src: ['./src/**/*.js']
+                    }
+                }
+            },
+            test: {
+                options: {
+                    debug: true,
+                    external: ['../../../src/**/*.js', '../../src/**/*.js']
+                },
+                files: {
+                    'dist/bundle.test.js': ['test/**/*.js']
                 }
             }
         }
@@ -175,7 +151,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     
     // Default task.
-    grunt.registerTask('test', ['jshint:lenient', 'jasmine:run', 'cleanRunner']);
+    grunt.registerTask('test', ['browserify:src', 'browserify:test', 'jshint:lenient', 'jasmine:run', 'cleanRunner']);
     grunt.registerTask('lint', ['jshint:strict']);
     grunt.registerTask('build', ['test', 'clean', 'sass:dist', 'requirejs:dist', 'htmlmin:dist', 'uglify:dist', 'miscBuildTasks']);
 
@@ -186,7 +162,8 @@ module.exports = function(grunt) {
             if (err) {
                 throw err;
             }
-            fs.writeFile('specRunner.html', data.replace('url = \'./.grunt/grunt-contrib-jasmine/\' + url;', '').replace('\'.grunt/grunt-contrib-jasmine/grunt-template-jasmine-istanbul/reporter.js\',\'./.grunt/grunt-contrib-jasmine/reporter.js\'', ''), function (err) {
+            fs.writeFile('specRunner.html', data.replace('src=\'./.grunt/grunt-contrib-jasmine/\'dist', './dist')
+                .replace('\'.grunt/grunt-contrib-jasmine/grunt-template-jasmine-istanbul/reporter.js\',\'./.grunt/grunt-contrib-jasmine/reporter.js\'', ''), function (err) {
                 if (err) {
                     throw err;
                 }
