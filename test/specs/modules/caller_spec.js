@@ -1,11 +1,11 @@
-/*global describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
+/*global xdescribe: false, xit: false, describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 
-describe('modules/caller', function () {
+xdescribe('modules/caller', function () {
     
     'use strict';
 
-    var Caller = require('modules/caller'),
-        eventEmitter = require('mixins/event-emitter'),
+    var Caller = require('../../../src/modules/caller'),
+        eventEmitter = require('../../../src/mixins/event-emitter'),
         caller;
     afterEach(function () {
         var audioTag = document.getElementsByTagName('audio')[0];

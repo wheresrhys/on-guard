@@ -1,28 +1,19 @@
 {
-	"folders":	[
-		{
-			"path": "/Users/wheresrhys/Sites/on-guard",
-            "folder_exclude_patterns": [".grunt", "node_modules"]
-		}
+	"build_systems":
+	[
 	],
-    "build_systems": [
-//         {
-//             "name": "updateHTML",
-//             "cmd": ["ant", "update-ui"],
-//             "working_dir": "/Users/a-rhevans/hcom-dev/applications/dev/HermesWebApp",
-//             "selector": "text.html.jsp"
-//         },
-//         {
-//             "name": "updateCSS",
-//             "cmd": ["ant", "update-ui"],
-// "working_dir": "/Users/a-rhevans/hcom-dev/Assets/CommonAssetPack/Main",
-//             "selector": "source.css"
-//         },
-//         {
-//             "name": "updateJS",
-//             "cmd": ["ant", "update-ui"],
-// "working_dir": "/Users/a-rhevans/hcom-dev/Assets/CommonAssetPack/Main",
-//             "selector": "source.js"
-//         }
-    ]
+	"folders":
+	[
+		{
+			"folder_exclude_patterns":
+			[
+				".grunt",
+				"node_modules"
+			],
+			"path": "/Users/wheresrhys/Sites/on-guard"
+		},
+		{
+			"path": "/Users/wheresrhys/Sites/grunt-browserify-jasmine-node-example"
+		}
+	]
 }
