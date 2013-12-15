@@ -115,7 +115,7 @@ module.exports = function(grunt) {
             },
             src: {
                 files: {
-                    'dist/bundle.src.js': ['./src/**/*.js']
+                    'dist/bundle.src.js': ['./src/**/*.js', '!./src/main.js']
                 },
                 options: {
                     debug: true,
@@ -162,7 +162,7 @@ module.exports = function(grunt) {
             if (err) {
                 throw err;
             }
-            fs.writeFile('specRunner.html', data.replace('src=\'./.grunt/grunt-contrib-jasmine/\'dist', './dist')
+            fs.writeFile('specRunner.html', data.replace('src=".grunt/grunt-contrib-jasmine/dist', 'src="./dist')
                 .replace('\'.grunt/grunt-contrib-jasmine/grunt-template-jasmine-istanbul/reporter.js\',\'./.grunt/grunt-contrib-jasmine/reporter.js\'', ''), function (err) {
                 if (err) {
                     throw err;
