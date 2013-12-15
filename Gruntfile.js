@@ -2,7 +2,7 @@
 module.exports = function(grunt) {
     'use strict';
 
-
+    var allSrcs = ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'];
     // Project configuration.
     grunt.initConfig({
         
@@ -12,10 +12,10 @@ module.exports = function(grunt) {
 
         jshint: {
             options: grunt.file.readJSON('./.jshintrc'),
-            lenient: ['Gruntfile.js', 'src/**/*.js', 'test/specs/**/*.js'],
+            lenient: allSrcs,
             strict: {
                 files: {
-                    src: ['Gruntfile.js', 'src/**/*.js', 'test/specs/**/*.js']
+                    src: allSrcs
                 },
                 options: {
                     unused: true,
@@ -153,9 +153,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
-
-
-    
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-connect');
