@@ -3,7 +3,7 @@ describe('mixins/event-emitter', function () {
 
     'use strict';
 
-    var eventEmitter = require('../../../src/mixins/event-emitter'),
+    var eventEmitter = require('theapp/mixins/event-emitter'),
         emitter1,
         subscriber1,
         emitter2,

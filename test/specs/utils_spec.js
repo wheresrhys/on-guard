@@ -1,6 +1,6 @@
 /*global describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('utils', function () {
-    var utils = require('../../src/utils');
+    var utils = require('theapp/utils');
 
     describe('pickRandomProperty', function () {
         it('should return undefined when passed an empty object', function () {

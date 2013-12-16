@@ -4,8 +4,8 @@ xdescribe('modules/caller', function () {
     
     'use strict';
 
-    var Caller = require('../../../src/modules/caller'),
-        eventEmitter = require('../../../src/mixins/event-emitter'),
+    var Caller = require('theapp/modules/caller'),
+        eventEmitter = require('theapp/mixins/event-emitter'),
         caller;
     afterEach(function () {
         var audioTag = document.getElementsByTagName('audio')[0];

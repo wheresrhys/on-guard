@@ -1,7 +1,7 @@
 /*global TestHelpers:false, describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('modules/control-panel', function () {
-    var ControlPanel = require('../../../src/modules/control-panel'),
-        eventEmitter = require('../../../src/mixins/event-emitter'),
+    var ControlPanel = require('theapp/modules/control-panel'),
+        eventEmitter = require('theapp/mixins/event-emitter'),
         controlPanel;
         
     describe('initialisation', function () {

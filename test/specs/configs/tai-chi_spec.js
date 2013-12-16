@@ -1,7 +1,7 @@
 /*global describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('configs/tai-chi', function () {
-    var Driller = require('../../../src/modules/driller'),
-        taiChiConfig = require('../../../src/configs/tai-chi'),
+    var Driller = require('theapp/modules/driller'),
+        taiChiConfig = require('theapp/configs/tai-chi'),
         driller;
     function checkEnumerable(prop, obj) {
         for (var key in obj) {

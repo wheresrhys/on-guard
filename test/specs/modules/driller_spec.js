@@ -1,7 +1,7 @@
 /*global waitsFor:false,describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('modules/driller', function () {
     
-    var Driller = require('../../../src/modules/driller'),
+    var Driller = require('theapp/modules/driller'),
         driller,
         testConf = {
             name: 'testDiscipline',

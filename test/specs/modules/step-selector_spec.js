@@ -1,8 +1,8 @@
 /*global TestHelpers:false, describe:false, jasmine:false, beforeEach:false, afterEach:false,runs:false,waits:false,expect:false,it:false,spyOn:false */
 describe('modules/step-selector', function () {
-    var StepSelector = require('../../../src/modules/step-selector'),
-        eventEmitter = require('../../../src/mixins/event-emitter'),
-        Driller = require('../../../src/modules/driller'),
+    var StepSelector = require('theapp/modules/step-selector'),
+        eventEmitter = require('theapp/mixins/event-emitter'),
+        Driller = require('theapp/modules/driller'),
         stepSelector,
         domNode,
         getDriller = function () {
