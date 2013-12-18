@@ -26,27 +26,12 @@ module.exports = function(grunt) {
 
         jasmine: {
             run: {
-                src: ['dist/bundle.src.js'],
+                src: ['tmp/bundle.src.js'],
                 options: {
                     outfile: 'specRunner.html',
                     keepRunner: true,
-                    specs: ['dist/bundle.test.js'],
-                    helpers: ['test/helpers/**/*.js']
-                    // template: require('grunt-template-jasmine-istanbul'),
-                    // templateOptions: {
-                    //     coverage: 'reports/coverage.json',
-                    //     report: [
-                    //         {
-                    //             type: 'html',
-                    //             options: {
-                    //                 dir: 'reports/coverage'
-                    //             }
-                    //         },
-                    //         {
-                    //             type: 'text-summary'
-                    //         }
-                    //     ]
-                    // }
+                    specs: ['dist/bundle.test.js']//,
+                    //helpers: ['test/helpers/**/*.js']
                 }
             }
         },
@@ -115,7 +100,7 @@ module.exports = function(grunt) {
             },
             src: {
                 files: {
-                    'dist/bundle.src.js': ['./dist/instrument/src/**/*.js', '!./dist/instrument/src/main.js']
+                    'tmp/bundle.src.js': ['./dist/instrument/src/**/*.js', '!./dist/instrument/src/main.js']
                 },
                 options: {
                     debug: false,
@@ -123,7 +108,7 @@ module.exports = function(grunt) {
                         cwd: './dist/instrument/src/',      // Src matches are relative to this path.
                         src: ['**/*.js'], // Actual pattern(s) to match.
                         dest: './theapp/',   // Destination path prefix.
-                        ext: '.js'   // Dest filepaths will have this extension.
+                        //ext: '.js'   // Dest filepaths will have this extension.
                         // src: ['./dist/instrument/src/**/*.js:theapp/**/*.js']
                     }
                 }
@@ -141,16 +126,16 @@ module.exports = function(grunt) {
         instrument: {
             files: ['./src/**/*.js', '!./src/main.js'],
             options: {
-                lazy: true,
+                lazy: false,
                 basePath: 'dist/instrument/'
             }
         },
         reloadTasks : {
-            rootPath : 'dist/instrument/src'
+            rootPath : 'tmp/'
         },
         storeCoverage : {
             options : {
-                dir : 'reports'
+                dir : 'reports/'
             }
         },
         makeReport : {
@@ -178,8 +163,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-istanbul');
 
-    grunt.registerTask('cover', [ 'instrument', 'browserify:src', 'reloadTasks', 'browserify:test', 'jshint:lenient', 'jasmine:run', 'cleanRunner',
-      'storeCoverage', 'makeReport' ]);
+    grunt.registerTask('cover', [ 'instrument', 'browserify:src', 'browserify:test', 'jshint:lenient', 'coverup']);
+
+    grunt.registerTask('coverup', ['reloadTasks', 'jasmine:run', 'storeCoverage', 'makeReport' ]);
     
     // Default task.
     grunt.registerTask('test', ['browserify:src', 'browserify:test', 'jshint:lenient', 'jasmine:run', 'cleanRunner']);
