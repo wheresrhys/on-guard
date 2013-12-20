@@ -1,0 +1,218 @@
+html, body {
+  margin: 0;
+  min-height: 100%;
+  padding: 0;
+  font-family: arial, helvetica, "sans serif";
+  color: #333;
+}
+
+h1, h2, h3 {
+  font-family: "MedievalSharp", cursive;
+}
+
+h1 {
+  background: #e5ddc6;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e5ddc6), color-stop(41%, #decbad), color-stop(72%, #b9b29f), color-stop(91%, #909189));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* W3C */
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+  margin: 0;
+  padding: 10px;
+}
+
+h1 em {
+  font-weight: bold;
+  font-style: normal;
+  color: #aa0000;
+}
+
+h2, h3 {
+  margin: 10px;
+}
+
+p {
+  margin: 10px;
+}
+
+.form {
+  background: #f8f5ea;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f8f5ea 0%, #f7eee1 41%, #ede7d9 89%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f8f5ea), color-stop(41%, #f7eee1), color-stop(89%, #ede7d9));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #f8f5ea 0%, #f7eee1 41%, #ede7d9 89%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #f8f5ea 0%, #f7eee1 41%, #ede7d9 89%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #f8f5ea 0%, #f7eee1 41%, #ede7d9 89%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #f8f5ea 0%, #f7eee1 41%, #ede7d9 89%);
+  /* W3C */
+}
+
+fieldset {
+  border: none;
+  border-top: 1px solid #909189;
+  padding: 10px;
+}
+
+fieldset :first-child {
+  margin-top: 0;
+}
+
+fieldset p {
+  margin: 10px 0;
+}
+
+fieldset label {
+  float: left;
+  width: 75%;
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+
+fieldset hr {
+  border-top: 1px solid #909189;
+  opacity: 0.5;
+  clear: left;
+}
+
+fieldset input:not([type="button"]) {
+  float: left;
+  width: 20%;
+}
+
+fieldset.checkboxes input {
+  width: auto;
+  margin-right: 10px;
+  clear: left;
+}
+
+.visualiser-wrapper {
+  display: -webkit-box;
+  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box;
+  /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox;
+  /* TWEENER - IE 10 */
+  display: -webkit-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-flex-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.floorspace {
+  background: #e5ddc6;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e5ddc6), color-stop(41%, #decbad), color-stop(72%, #b9b29f), color-stop(91%, #909189));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #e5ddc6 0%, #decbad 41%, #b9b29f 72%, #909189 91%);
+  /* W3C */
+  text-align: center;
+  border-radius: 4px;
+  font-size: 20px;
+}
+
+.floorspace td {
+  border-radius: 2px;
+  width: 30px;
+  height: 30px;
+  color: white;
+  padding: 3px;
+}
+
+.floorspace .current {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+}
+.floorspace .current:before, .floorspace .current:after {
+  position: absolute;
+  width: 4px;
+  height: 10px;
+  border-radius: 5px;
+  content: '';
+}
+.floorspace .current:before {
+  background: rgba(255, 0, 0, 0.8);
+}
+.floorspace .current:after {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.floorspace .left:before {
+  top: 2px;
+  left: 2px;
+}
+.floorspace .left:after {
+  bottom: 2px;
+  right: 2px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.floorspace .right:before {
+  top: 2px;
+  right: 2px;
+}
+.floorspace .right:after {
+  bottom: 2px;
+  left: 2px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.floorspace .north {
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
+.floorspace .south {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.floorspace .east {
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.floorspace .west {
+  -webkit-transform: rotate(270deg);
+  transform: rotate(270deg);
+}

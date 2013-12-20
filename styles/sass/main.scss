@@ -138,14 +138,54 @@ fieldset.checkboxes input {
     padding: 3px;
 }
 .floorspace .current {
+    position: relative;
     background: rgba(0,0,0,0.5);
+
+    &:before,
+    &:after {
+        position: absolute;
+        width: 4px;
+        height: 10px;
+        border-radius: 5px;
+        content: '';
+    }
+
+    &:before {
+        background: rgba(255,0,0,0.8);
+    }
+
+    &:after {
+        background: rgba(0,0,0,0.8);
+    }
 }
 
 .floorspace .left {
-    text-align: left;
+    &:before {
+        top: 2px;
+        left: 2px;
+    }
+
+    &:after {
+        bottom: 2px;
+        right: 2px;
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    
 }
 .floorspace .right {
-    text-align: right;
+    &:before {
+        top: 2px;
+        right: 2px;
+    }
+
+    &:after {
+        bottom: 2px;
+        left: 2px;
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
 }
 .floorspace .north {
     -webkit-transform: rotate(0deg);

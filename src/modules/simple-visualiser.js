@@ -88,13 +88,13 @@ Visualiser.prototype = {
         cell.className = 'current ' + direction.toLowerCase() + ' ' + (frontFoot && frontFoot.toLowerCase());
         this.position = coords;
         // up arrow
-        cell.innerHTML = '&#8593;';
+        // cell.innerHTML = '&#8593;';
     },
     unshowPosition: function () {
         var cell = this.grid.getElementsByTagName('tr')[(this.conf.areaLength - 1) - this.position[0]]
                 .getElementsByTagName('td')[this.position[1]];
         cell.className = '';
-        cell.innerHTML = defaultCellHtml;
+        // cell.innerHTML = defaultCellHtml;
         
     }
 };
