@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     config.clean = {
-        files: ['dist']
+        files: ['dist', 'tmp']
     };
 
     grunt.loadNpmTasks('grunt-contrib-jasmine');
@@ -35,7 +35,7 @@ module.exports = function(grunt) {
                     ]
                 },
 
-                specs: ['dist/bundle.test.js']//,
+                specs: ['tmp/bundle.test.js']//,
                 //helpers: ['test/helpers/**/*.js']
             }
         }
@@ -108,7 +108,7 @@ module.exports = function(grunt) {
                 debug: false
             },
             files: {
-                'dist/bundle.min.js': ['./src/main.js']
+                'dist/bundle.js': ['./src/main.js']
             }
         },
         dev: {
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
                 debug: true
             },
             files: {
-                'dist/bundle.js': ['./src/main.js']
+                'bundle.js': ['./src/main.js']
             }
         },
         src: {
@@ -151,7 +151,7 @@ module.exports = function(grunt) {
                 external: grunt.file.expand('src/**/*').map(function (item) {return item.replace(/\.js$/, '').replace('src/', 'theapp/');})
             },
             files: {
-                'dist/bundle.test.js': ['test/**/*.js']
+                'tmp/bundle.test.js': ['test/**/*.js']
             }
         }
     };
@@ -169,7 +169,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', ['instrument', 'browserify:instrumented', 'browserify:src', 'browserify:test', 'jshint:lenient', 'jasmine:run', 'cleanRunner']);
     grunt.registerTask('lint', ['jshint:strict']);
-    grunt.registerTask('build', ['test', 'clean', 'sass:dist', 'htmlmin:dist', 'miscBuildTasks']);
+    grunt.registerTask('build', ['test', 'clean', 'browserify:prod', 'sass:dist', 'htmlmin:dist', 'miscBuildTasks']);
 
     grunt.registerTask('cleanRunner', function () {
         var fs = require('fs'),
