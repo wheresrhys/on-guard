@@ -2,172 +2,171 @@
 module.exports = function(grunt) {
     'use strict';
 
-    var allSrcs = ['./Gruntfile.js', './src/**/*.js', './test/**/*.js'];
-    // Project configuration.
-    grunt.initConfig({
-        
-        clean: {
-            files: ['dist']
-        },
+    var config = {},
+        allSrcs = ['./Gruntfile.js', './src/**/*.js', './test/**/*.js'];
 
-        jshint: {
-            options: grunt.file.readJSON('./.jshintrc'),
-            lenient: allSrcs,
-            strict: {
-                files: {
-                    src: allSrcs
-                },
-                options: {
-                    unused: true,
-                    maxparams: 3
-                }
-            }
-        },
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    config.clean = {
+        files: ['dist']
+    };
 
-        jasmine: {
-            run: {
-                src: ['tmp/bundle.src.js'],
-                options: {
-                    outfile: 'specRunner.html',
-                    keepRunner: true,
-                    // helpers: ['test/helpers/**/*.js']
-                    template: require('grunt-template-jasmine-istanbul'),
-                    templateOptions: {
-                        replace: false,
-                        coverage: 'reports/coverage.json',
-                        report: [
-                            {
-                                type: 'html',
-                                options: {
-                                    dir: 'reports/coverage'
-                                }
-                            },
-                            {
-                                type: 'text-summary'
-                            }
-                        ]
-                    },
-
-                    specs: ['dist/bundle.test.js']//,
-                    //helpers: ['test/helpers/**/*.js']
-                }
-            }
-        },
-        watch: {
-            sass: {
-                files: ['styles/sass/**/*.scss'],
-                tasks: 'sass:dev'
-            },
-            js: {
-                files: ['src/**/*.js'],
-                tasks: 'browserify:dev'
-            }
-        },
-        sass: {
-            dist: {
-                options: {
-                    style: 'compressed'
-                },
-                files: {
-                    './dist/styles/css/main.css': './styles/sass/main.scss'
-                }
-            },
-            dev: {
-                options: {
-                    style: 'expanded'
-                },
-                files: {
-                    './styles/css/main.css': './styles/sass/main.scss'
-                }
-            }
-        },
-        htmlmin: {
-            
-            dist: {
-                options: {                                 // Target options
-                    removeComments: true,
-                    collapseWhitespace: true
-                },
-                files: {
-                    './dist/index.html': './index.html'
-                }
-            }
-        },
-
-        browserify: {
-            prod: {
-                options: {
-                    debug: false
-                },
-                files: {
-                    'dist/bundle.min.js': ['./src/main.js']
-                }
-            },
-            dev: {
-                options: {
-                    debug: true
-                },
-                files: {
-                    'dist/bundle.js': ['./src/main.js']
-                }
-            },
-            src: {
-                files: {
-                    'dist/bundle.src.js': ['./src/**/*.js', '!./src/main.js']
-                },
-                options: {
-                    debug: false,
-                    aliasMappings: {
-                        cwd: './src/',      // Src matches are relative to this path.
-                        src: ['**/*.js'], // Actual pattern(s) to match.
-                        dest: './theapp/'
-                    }
-                }
-            },
-            instrumented: {
-                files: {
-                    'tmp/bundle.src.js': ['./dist/instrument/src/**/*.js', '!./dist/instrument/src/main.js']
-                },
-                options: {
-                    debug: false,
-                    aliasMappings: {
-                        cwd: './dist/instrument/src/',      // Src matches are relative to this path.
-                        src: ['**/*.js'], // Actual pattern(s) to match.
-                        dest: './theapp/'
-                    }
-                }
-            },
-            test: {
-                options: {
-                    debug: false,
-                    external: grunt.file.expand('src/**/*').map(function (item) {return item.replace(/\.js$/, '').replace('src/', 'theapp/');})
-                },
-                files: {
-                    'dist/bundle.test.js': ['test/**/*.js']
-                }
-            }
-        },
-        instrument: {
-            files: ['./src/**/*.js', '!./src/main.js'],
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    config.jasmine = {
+        run: {
+            src: ['tmp/bundle.src.js'],
             options: {
-                lazy: false,
-                basePath: 'dist/instrument/'
+                outfile: 'specRunner.html',
+                keepRunner: true,
+                // helpers: ['test/helpers/**/*.js']
+                template: require('grunt-template-jasmine-istanbul'),
+                templateOptions: {
+                    replace: false,
+                    coverage: 'reports/coverage.json',
+                    report: [
+                        {
+                            type: 'html',
+                            options: {
+                                dir: 'reports/coverage'
+                            }
+                        },
+                        {
+                            type: 'text-summary'
+                        }
+                    ]
+                },
+
+                specs: ['dist/bundle.test.js']//,
+                //helpers: ['test/helpers/**/*.js']
             }
         }
-    });
+    };
 
-
-    // These plugins provide necessary tasks.
-    grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-sass');
-    grunt.loadNpmTasks('grunt-browserify');
-    grunt.loadNpmTasks('grunt-istanbul');
+    config.jshint = {
+        options: grunt.file.readJSON('./.jshintrc'),
+        lenient: allSrcs,
+        strict: {
+            files: {
+                src: allSrcs
+            },
+            options: {
+                unused: true,
+                maxparams: 3
+            }
+        }
+    };
 
-    // Default task.
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    config.htmlmin = {
+        dist: {
+            options: {                                 // Target options
+                removeComments: true,
+                collapseWhitespace: true
+            },
+            files: {
+                './dist/index.html': './index.html'
+            }
+        }
+    };
+
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    config.watch = {
+        sass: {
+            files: ['styles/sass/**/*.scss'],
+            tasks: 'sass:dev'
+        },
+        js: {
+            files: ['src/**/*.js'],
+            tasks: 'browserify:dev'
+        }
+    };
+
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    config.sass = {
+        dist: {
+            options: {
+                style: 'compressed'
+            },
+            files: {
+                './dist/styles/css/main.css': './styles/sass/main.scss'
+            }
+        },
+        dev: {
+            options: {
+                style: 'expanded'
+            },
+            files: {
+                './styles/css/main.css': './styles/sass/main.scss'
+            }
+        }
+    };
+
+    grunt.loadNpmTasks('grunt-browserify');
+    config.browserify = {
+        prod: {
+            options: {
+                debug: false
+            },
+            files: {
+                'dist/bundle.min.js': ['./src/main.js']
+            }
+        },
+        dev: {
+            options: {
+                debug: true
+            },
+            files: {
+                'dist/bundle.js': ['./src/main.js']
+            }
+        },
+        src: {
+            files: {
+                'dist/bundle.src.js': ['./src/**/*.js', '!./src/main.js']
+            },
+            options: {
+                debug: false,
+                aliasMappings: {
+                    cwd: './src/',      // Src matches are relative to this path.
+                    src: ['**/*.js'], // Actual pattern(s) to match.
+                    dest: './theapp/'
+                }
+            }
+        },
+        instrumented: {
+            files: {
+                'tmp/bundle.src.js': ['./dist/instrument/src/**/*.js', '!./dist/instrument/src/main.js']
+            },
+            options: {
+                debug: false,
+                aliasMappings: {
+                    cwd: './dist/instrument/src/',      // Src matches are relative to this path.
+                    src: ['**/*.js'], // Actual pattern(s) to match.
+                    dest: './theapp/'
+                }
+            }
+        },
+        test: {
+            options: {
+                debug: false,
+                external: grunt.file.expand('src/**/*').map(function (item) {return item.replace(/\.js$/, '').replace('src/', 'theapp/');})
+            },
+            files: {
+                'dist/bundle.test.js': ['test/**/*.js']
+            }
+        }
+    };
+
+    grunt.loadNpmTasks('grunt-istanbul');
+    config.instrument = {
+        files: ['./src/**/*.js', '!./src/main.js'],
+        options: {
+            lazy: false,
+            basePath: 'dist/instrument/'
+        }
+    };
+
+    grunt.initConfig(config);
+
     grunt.registerTask('test', ['instrument', 'browserify:instrumented', 'browserify:src', 'browserify:test', 'jshint:lenient', 'jasmine:run', 'cleanRunner']);
     grunt.registerTask('lint', ['jshint:strict']);
     grunt.registerTask('build', ['test', 'clean', 'sass:dist', 'htmlmin:dist', 'miscBuildTasks']);
@@ -199,11 +198,4 @@ module.exports = function(grunt) {
             }
         });
     });
-
-    //var phantomjs = require('grunt-lib-phantomjs').init(grunt);
-
-    
-    // add to teh build process something that creates a spec file for modules not having one built already and then halts the build
-    
-
 };
