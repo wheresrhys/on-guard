@@ -30,6 +30,24 @@ module.exports = function(grunt) {
                 options: {
                     outfile: 'specRunner.html',
                     keepRunner: true,
+                    // helpers: ['test/helpers/**/*.js']
+                    template: require('grunt-template-jasmine-istanbul'),
+                    templateOptions: {
+                        replace: false,
+                        coverage: 'reports/coverage.json',
+                        report: [
+                            {
+                                type: 'html',
+                                options: {
+                                    dir: 'reports/coverage'
+                                }
+                            },
+                            {
+                                type: 'text-summary'
+                            }
+                        ]
+                    },
+
                     specs: ['dist/bundle.test.js']//,
                     //helpers: ['test/helpers/**/*.js']
                 }
