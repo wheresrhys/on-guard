@@ -145,29 +145,35 @@ fieldset.checkboxes input {
     &:after {
         position: absolute;
         width: 4px;
-        height: 10px;
-        border-radius: 5px;
+        height: 12px;
+        border-radius: 10px;
         content: '';
+        top: 4px;
+        
     }
 
     &:before {
         background: rgba(255,0,0,0.8);
+        left: 4px;
     }
 
     &:after {
         background: rgba(0,0,0,0.8);
+        left: 10px;
     }
 }
 
 .floorspace .left {
     &:before {
-        top: 2px;
-        left: 2px;
+        top: 4px;
+        left: 4px;
     }
 
     &:after {
-        bottom: 2px;
-        right: 2px;
+        top: auto;
+        left: auto;
+        bottom: 4px;
+        right: 4px;
         -webkit-transform: rotate(45deg);
         transform: rotate(45deg);
     }
@@ -175,18 +181,21 @@ fieldset.checkboxes input {
 }
 .floorspace .right {
     &:before {
-        top: 2px;
-        right: 2px;
+        top: 4px;
+        right: 4px;
+        left: auto;
     }
 
     &:after {
-        bottom: 2px;
-        left: 2px;
+        top: auto;
+        bottom: 4px;
+        left: 4px;
         -webkit-transform: rotate(-45deg);
         transform: rotate(-45deg);
     }
 
 }
+
 .floorspace .north {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
