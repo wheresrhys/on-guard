@@ -1,5 +1,5 @@
 # On guard
-[![Build Status](https://travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME].png)](https://travis-ci.org/wheresrhys/on-guard)
+[![Build Status](https://travis-ci.org/wheresrhys/on-guard.png)](https://travis-ci.org/wheresrhys/on-guard)
 
 This app calls out tai chi martial commands to help improve your coordination.
  
