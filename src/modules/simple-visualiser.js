@@ -7,7 +7,7 @@ var utils = require('../utils'),
     East: 8594,
     South: 8595
 },
-defaultCellHtml = '&nbsp;&nbsp;&nbsp;&nbsp;';
+defaultCellHtml = '<div>&nbsp;&nbsp;&nbsp;&nbsp;</div>';
 
 var Visualiser = function (driller, domNodeId) {
     this.conf = driller.conf;
@@ -94,6 +94,7 @@ Visualiser.prototype = {
         var cell = this.grid.getElementsByTagName('tr')[(this.conf.areaLength - 1) - this.position[0]]
                 .getElementsByTagName('td')[this.position[1]];
         cell.className = '';
+        // cell.offsetWidth;
         // cell.innerHTML = defaultCellHtml;
         
     }
