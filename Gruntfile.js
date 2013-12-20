@@ -10,6 +10,14 @@ module.exports = function(grunt) {
         files: ['dist', 'tmp']
     };
 
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    config.uglify = {
+        dist: {
+            src: './dist/bundle.js',
+            dest: './dist/bundle.js'
+        }
+    };
+
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     config.jasmine = {
         run: {
@@ -169,7 +177,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test', ['instrument', 'browserify:instrumented', 'browserify:src', 'browserify:test', 'jshint:lenient', 'jasmine:run', 'cleanRunner']);
     grunt.registerTask('lint', ['jshint:strict']);
-    grunt.registerTask('build', ['test', 'clean', 'browserify:prod', 'sass:dist', 'htmlmin:dist', 'miscBuildTasks']);
+    grunt.registerTask('build', ['test', 'clean', 'browserify:prod', 'sass:dist', 'htmlmin:dist', 'uglify:dist', 'miscBuildTasks']);
 
     grunt.registerTask('cleanRunner', function () {
         var fs = require('fs'),
