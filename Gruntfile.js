@@ -1,4 +1,4 @@
-/*global module:false,requirejs:false*/
+/*global global:true,module:false,requirejs:false*/
 module.exports = function(grunt) {
     'use strict';
 
@@ -162,10 +162,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-istanbul');
+    grunt.loadNpmTasks('grunt-debug-task');
 
     grunt.registerTask('cover', [ 'instrument', 'browserify:src', 'browserify:test', 'jshint:lenient', 'coverup']);
 
-    grunt.registerTask('coverup', ['reloadTasks', 'jasmine:run', 'storeCoverage', 'makeReport' ]);
+    grunt.registerTask('coverup', ['jasmine:run', 'storeCoverage', 'makeReport' ]);
     
     // Default task.
     grunt.registerTask('test', ['browserify:src', 'browserify:test', 'jshint:lenient', 'jasmine:run', 'cleanRunner']);
@@ -197,6 +198,10 @@ module.exports = function(grunt) {
             }
         });
     });
+
+    //var phantomjs = require('grunt-lib-phantomjs').init(grunt);
+
+    
     // add to teh build process something that creates a spec file for modules not having one built already and then halts the build
     
 
