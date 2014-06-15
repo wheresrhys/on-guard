@@ -93,7 +93,8 @@ module.exports = function(grunt) {
     config.sass = {
         dist: {
             options: {
-                style: 'compressed'
+                style: 'compressed',
+                bundleExec: true
             },
             files: {
                 './dist/styles/css/main.css': './styles/sass/main.scss'
