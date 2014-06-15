@@ -13,8 +13,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     config.uglify = {
         dist: {
-            src: './dist/bundle.js',
-            dest: './dist/bundle.js'
+            src: './public/bundle.js',
+            dest: './public/bundle.js'
         }
     };
 
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
                 collapseWhitespace: true
             },
             files: {
-                './dist/index.html': './index.html'
+                './public/index.html': './index.html'
             }
         }
     };
@@ -96,7 +96,7 @@ module.exports = function(grunt) {
                 style: 'compressed'
             },
             files: {
-                './dist/styles/css/main.css': './styles/sass/main.scss'
+                './public/styles/css/main.css': './styles/sass/main.scss'
             }
         },
         dev: {
@@ -116,7 +116,7 @@ module.exports = function(grunt) {
                 debug: false
             },
             files: {
-                'dist/bundle.js': ['./src/main.js']
+                'public/bundle.js': ['./src/main.js']
             }
         },
         dev: {
@@ -129,7 +129,7 @@ module.exports = function(grunt) {
         },
         src: {
             files: {
-                'dist/bundle.src.js': ['./src/**/*.js', '!./src/main.js']
+                'public/bundle.src.js': ['./src/**/*.js', '!./src/main.js']
             },
             options: {
                 debug: false,
@@ -142,12 +142,12 @@ module.exports = function(grunt) {
         },
         instrumented: {
             files: {
-                'tmp/bundle.src.js': ['./dist/instrument/src/**/*.js', '!./dist/instrument/src/main.js']
+                'tmp/bundle.src.js': ['./public/instrument/src/**/*.js', '!./public/instrument/src/main.js']
             },
             options: {
                 debug: false,
                 aliasMappings: {
-                    cwd: './dist/instrument/src/',      // Src matches are relative to this path.
+                    cwd: './public/instrument/src/',      // Src matches are relative to this path.
                     src: ['**/*.js'], // Actual pattern(s) to match.
                     dest: './theapp/'
                 }
@@ -169,7 +169,7 @@ module.exports = function(grunt) {
         files: ['./src/**/*.js', '!./src/main.js'],
         options: {
             lazy: false,
-            basePath: 'dist/instrument/'
+            basePath: 'public/instrument/'
         }
     };
 
@@ -202,7 +202,7 @@ module.exports = function(grunt) {
         // copy assets
         grunt.file.recurse('./assets', function (path) {
             if (path.indexOf('DS_Store') === -1) {
-                grunt.file.copy(path, './dist/' + path);
+                grunt.file.copy(path, './public/' + path);
             }
         });
     });
