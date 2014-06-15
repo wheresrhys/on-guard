@@ -26,4 +26,5 @@
                 wuchi move should be fired with null front foot
                 tests for no limits on area and count
                 change way enumerable is defined to be simple and easier to write the config
+                travis
             </p>

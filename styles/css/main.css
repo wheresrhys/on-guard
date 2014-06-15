@@ -77,7 +77,7 @@ fieldset p {
 
 fieldset label {
   float: left;
-  width: 75%;
+  width: 35%;
   box-sizing: border-box;
   padding-right: 10px;
 }
@@ -96,6 +96,8 @@ fieldset input:not([type="button"]) {
 fieldset.checkboxes input {
   width: auto;
   margin-right: 10px;
+}
+fieldset.checkboxes input:nth-child(4n-2) {
   clear: left;
 }
 

@@ -7,3 +7,4 @@ test/coverage.json
 ./**/.DS_Store
 onguard.sublime-project
 onguard.sublime-workspace
+reports

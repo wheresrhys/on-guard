@@ -13,7 +13,7 @@ module.exports = {
         
         var driller = new Driller({
             discipline: 'taiChi',
-            disabledSteps: ['inside', 'outside'],
+            disabledSteps: ['turn', 'inside', 'outside'],
             delay: 2
         });
 
