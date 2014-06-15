@@ -1,1 +1,1 @@
-require('harp').server(__dirname, { port: process.env.PORT || 5000 });
+require('harp').server(process.cwd(), { port: process.env.PORT || 5000 });
